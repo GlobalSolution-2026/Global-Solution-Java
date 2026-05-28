@@ -1,6 +1,6 @@
 package CondicoesDeMissao;
 
-public abstract class Regiao {
+public class Regiao {
 
     public enum TipoTerreno {
         MONTANHA, FLORESTA, URBANO

@@ -1,3 +1,5 @@
+import CondicoesDeMissao.Regiao;
+
 /**
  *
  * @author Nicolas Martins, Ana Bautzer, Cauã Bertini, Nicolas Frazão, Eduardo Lima
@@ -7,5 +9,7 @@
 
 public class Main {
     public static void main(String[] args) {
+
+
     }
 }
