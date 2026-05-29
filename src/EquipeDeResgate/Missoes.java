@@ -1,5 +1,7 @@
 package EquipeDeResgate;
 
+import CondicoesDeMissao.Regiao;
+
 import java.time.LocalDateTime;
 
 public abstract class Missoes {

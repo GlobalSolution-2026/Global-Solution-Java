@@ -1,5 +1,9 @@
 package EquipeDeResgate;
 
+import FormatoDePontuacao.Penalidades;
+
+import java.time.LocalDate;
+
 public class EquipeDeResgate {
     private String nomeEquipe, especialidade, tempoDeResposta;
 

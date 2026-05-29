@@ -13,6 +13,10 @@ public class OperadorUsuario {
         this.dataNascimento = dataNascimento;
     }
 
+    public OperadorUsuario() {
+
+    }
+
     public String getNome() {
         return nome;
     }
