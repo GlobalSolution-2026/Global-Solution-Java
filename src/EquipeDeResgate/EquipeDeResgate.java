@@ -1,11 +1,12 @@
 package EquipeDeResgate;
 
-import FormatoDePontuacao.Penalidades;
+import CondicoesDeMissao.Tecnologia;
 
-import java.time.LocalDate;
+import java.util.Scanner;
 
-public class EquipeDeResgate {
+public class EquipeDeResgate implements Tecnologia {
     private String nomeEquipe, especialidade, tempoDeResposta;
+    Scanner sc = new Scanner(System.in);
 
     public EquipeDeResgate(String nomeEquipe, String especialidade, String tempoDeResposta) {
         this.nomeEquipe = nomeEquipe;
@@ -36,6 +37,7 @@ public class EquipeDeResgate {
     public void setTempoDeResposta(String tempoDeResposta) {
         this.tempoDeResposta = tempoDeResposta;
     }
+
     @Override
     public String toString() {
         return "Nome da equipe: " + nomeEquipe +
@@ -43,4 +45,32 @@ public class EquipeDeResgate {
                 "\nTempo de Resposta: " + tempoDeResposta;
     }
 
-}
+    @Override
+    public void nomeTecnologia() {
+        System.out.print("Informe o nome da tecnologia que vai utilizar: ");
+
+        String nomeTecnologia = sc.nextLine();
+
+        System.out.println("Tecnologia escolhida: " + nomeTecnologia);
+    }
+
+    @Override
+    public void tipoFuncao() {
+
+    }
+
+    @Override
+    public void statusDeDisponibilidade() {
+        boolean statusDisponibilidadeDrone = true;
+        boolean statusDisponibilidadeLEO = true;
+
+        System.out.printf("""
+            \nDisponibilidade de Dispositivos:
+            - Drone = %b
+            - LEO = %b
+            """,
+                statusDisponibilidadeDrone,
+                statusDisponibilidadeLEO
+        );
+    }
+    }

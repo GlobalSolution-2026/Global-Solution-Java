@@ -1,4 +1,5 @@
 import CondicoesDeMissao.Regiao;
+import EquipeDeResgate.EquipeDeResgate;
 
 /**
  *
@@ -9,7 +10,9 @@ import CondicoesDeMissao.Regiao;
 
 public class Main {
     public static void main(String[] args) {
-
+        EquipeDeResgate equipeDeResgate = new EquipeDeResgate("ALPHA", "Terrestre", " Curto");
+        System.out.println(equipeDeResgate);
+        equipeDeResgate.statusDeDisponibilidade();
 
     }
 }
