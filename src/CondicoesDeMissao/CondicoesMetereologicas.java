@@ -1,10 +1,24 @@
 package CondicoesDeMissao;
 
 public class CondicoesMetereologicas {
-    private double temperatura;
-    private String visibilidade, nivelPrecipitacao, velocidadeVento;
+    public enum Visibilidade {
+        Baixa, Moderada, Alta
+    }
 
-    public CondicoesMetereologicas(double temperatura, String visibilidade, String nivelPrecipitacao, String velocidadeVento) {
+    public enum nivelPrecipitacao {
+        Sem_Chuva, Leve, Moderada, Intensa
+    }
+
+    public enum VelocidadeVento {
+        Leve, Moderado, Forte
+    }
+
+    private double temperatura;
+    private VelocidadeVento velocidadeVento;
+    private Visibilidade visibilidade;
+    private nivelPrecipitacao nivelPrecipitacao;
+
+    public CondicoesMetereologicas(double temperatura, Visibilidade visibilidade, nivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento) {
         this.temperatura = temperatura;
         this.visibilidade = visibilidade;
         this.nivelPrecipitacao = nivelPrecipitacao;
@@ -19,29 +33,30 @@ public class CondicoesMetereologicas {
         this.temperatura = temperatura;
     }
 
-    public String getVisibilidade() {
+    public Visibilidade getVisibilidade() {
         return visibilidade;
     }
 
-    public void setVisibilidade(String visibilidade) {
+    public void setVisibilidade(Visibilidade visibilidade) {
         this.visibilidade = visibilidade;
     }
 
-    public String getNivelPrecipitacao() {
+    public nivelPrecipitacao getNivelPrecipitacao() {
         return nivelPrecipitacao;
     }
 
-    public void setNivelPrecipitacao(String nivelPrecipitacao) {
+    public void setNivelPrecipitacao(nivelPrecipitacao nivelPrecipitacao) {
         this.nivelPrecipitacao = nivelPrecipitacao;
     }
 
-    public String getVelocidadeVento() {
+    public VelocidadeVento getVelocidadeVento() {
         return velocidadeVento;
     }
 
-    public void setVelocidadeVento(String velocidadeVento) {
+    public void setVelocidadeVento(VelocidadeVento velocidadeVento) {
         this.velocidadeVento = velocidadeVento;
     }
+
     @Override
     public String toString() {
         return "Temperatura: " + temperatura + "°C" +

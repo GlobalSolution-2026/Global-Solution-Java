@@ -4,14 +4,16 @@ import CondicoesDeMissao.Regiao;
 
 import java.time.LocalDateTime;
 
-public abstract class Missoes {
+public abstract class Missoes extends Regiao {
     private LocalDateTime dataAcionamento, dataConclusao;
     private String statusMissao;
 
-    public Missoes(LocalDateTime dataAcionamento, LocalDateTime dataConclusao, String statusMissao) {
+    public Missoes(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao, LocalDateTime dataAcionamento, LocalDateTime dataConclusao, String statusMissao) {
+        super(nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao);
         this.dataAcionamento = dataAcionamento;
         this.dataConclusao = dataConclusao;
         this.statusMissao = statusMissao;
+
     }
 
     public LocalDateTime getDataAcionamento() {
@@ -37,6 +39,7 @@ public abstract class Missoes {
     public void setStatusMissao(String statusMissao) {
         this.statusMissao = statusMissao;
     }
+
     @Override
     public String toString() {
         return "Data de acionamento: " + dataAcionamento +

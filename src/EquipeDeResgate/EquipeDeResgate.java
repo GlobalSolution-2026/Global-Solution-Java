@@ -65,12 +65,12 @@ public class EquipeDeResgate implements Tecnologia {
         boolean statusDisponibilidadeLEO = true;
 
         System.out.printf("""
-            \nDisponibilidade de Dispositivos:
-            - Drone = %b
-            - LEO = %b
-            """,
+                        \nDisponibilidade de Dispositivos:
+                        - Drone = %b
+                        - LEO = %b
+                        """,
                 statusDisponibilidadeDrone,
                 statusDisponibilidadeLEO
         );
     }
-    }
+}

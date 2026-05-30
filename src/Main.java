@@ -1,3 +1,4 @@
+import CondicoesDeMissao.CondicoesMetereologicas;
 import CondicoesDeMissao.Regiao;
 import EquipeDeResgate.EquipeDeResgate;
 
@@ -10,9 +11,6 @@ import EquipeDeResgate.EquipeDeResgate;
 
 public class Main {
     public static void main(String[] args) {
-        EquipeDeResgate equipeDeResgate = new EquipeDeResgate("ALPHA", "Terrestre", " Curto");
-        System.out.println(equipeDeResgate);
-        equipeDeResgate.statusDeDisponibilidade();
-
+//NÃO ESQUECER DE COLOCAR LOOP PRA VER SE PODE AQUELA RESPOSTA
     }
 }

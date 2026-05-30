@@ -1,10 +1,26 @@
 package CondicoesDeMissao;
 
 public class Vitima {
-    private String identificacao, estadoInicialSaude, faixaEtaria, origemNotificacao;
-    private int qtdPessoas;
 
-    public Vitima(String identificacao, String estadoInicialSaude, String faixaEtaria, String origemNotificacao, int qtdPessoas) {
+    public enum EstadoInicialSaude {
+        Estavel, Grave, Risco_De_Vida
+    }
+
+    public enum FaixaEtaria {
+        Crianca, Adulta, Terceira_Idade
+    }
+
+    public enum OrigemNotificacao {
+        Satelite, Ligacao, SMS
+    }
+
+    private String identificacao;
+    private int qtdPessoas;
+    private EstadoInicialSaude estadoInicialSaude;
+    private FaixaEtaria faixaEtaria;
+    private OrigemNotificacao origemNotificacao;
+
+    public Vitima(String identificacao, EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria, OrigemNotificacao origemNotificacao, int qtdPessoas) {
         this.identificacao = identificacao;
         this.estadoInicialSaude = estadoInicialSaude;
         this.faixaEtaria = faixaEtaria;
@@ -20,27 +36,27 @@ public class Vitima {
         this.identificacao = identificacao;
     }
 
-    public String getEstadoInicialSaude() {
+    public EstadoInicialSaude getEstadoInicialSaude() {
         return estadoInicialSaude;
     }
 
-    public void setEstadoInicialSaude(String estadoInicialSaude) {
+    public void setEstadoInicialSaude(EstadoInicialSaude estadoInicialSaude) {
         this.estadoInicialSaude = estadoInicialSaude;
     }
 
-    public String getFaixaEtaria() {
+    public FaixaEtaria getFaixaEtaria() {
         return faixaEtaria;
     }
 
-    public void setFaixaEtaria(String faixaEtaria) {
+    public void setFaixaEtaria(FaixaEtaria faixaEtaria) {
         this.faixaEtaria = faixaEtaria;
     }
 
-    public String getOrigemNotificacao() {
+    public OrigemNotificacao getOrigemNotificacao() {
         return origemNotificacao;
     }
 
-    public void setOrigemNotificacao(String origemNotificacao) {
+    public void setOrigemNotificacao(OrigemNotificacao origemNotificacao) {
         this.origemNotificacao = origemNotificacao;
     }
 
@@ -51,6 +67,7 @@ public class Vitima {
     public void setQtdPessoas(int qtdPessoas) {
         this.qtdPessoas = qtdPessoas;
     }
+
     @Override
     public String toString() {
         return "Identificação: " + identificacao +
