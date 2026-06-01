@@ -5,28 +5,38 @@ import CondicoesDeMissao.Tecnologia;
 import java.util.Scanner;
 
 public class EquipeDeResgate implements Tecnologia {
-    private String nomeEquipe, especialidade, tempoDeResposta;
+    public enum NomeEquipe {
+        Alpha, Bravo, Charlie
+    }
+
+    public enum Especialidade {
+        Terrestre, Aquatico, Aerea
+    }
+
+    private String tempoDeResposta;
+    private Especialidade especialidade;
+    private NomeEquipe nomeEquipe;
     Scanner sc = new Scanner(System.in);
 
-    public EquipeDeResgate(String nomeEquipe, String especialidade, String tempoDeResposta) {
+    public EquipeDeResgate(NomeEquipe nomeEquipe, Especialidade especialidade, String tempoDeResposta) {
         this.nomeEquipe = nomeEquipe;
         this.especialidade = especialidade;
         this.tempoDeResposta = tempoDeResposta;
     }
 
-    public String getNomeEquipe() {
+    public NomeEquipe getNomeEquipe() {
         return nomeEquipe;
     }
 
-    public void setNomeEquipe(String nomeEquipe) {
+    public void setNomeEquipe(NomeEquipe nomeEquipe) {
         this.nomeEquipe = nomeEquipe;
     }
 
-    public String getEspecialidade() {
+    public Especialidade getEspecialidade() {
         return especialidade;
     }
 
-    public void setEspecialidade(String especialidade) {
+    public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
 

@@ -5,6 +5,7 @@ import CondicoesDeMissao.Regiao;
 import java.time.LocalDateTime;
 
 public abstract class Missoes extends Regiao {
+
     private LocalDateTime dataAcionamento, dataConclusao;
     private String statusMissao;
 
