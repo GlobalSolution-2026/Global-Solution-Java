@@ -1,5 +1,4 @@
 import EquipeDeResgate.OperadorUsuario;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 /**

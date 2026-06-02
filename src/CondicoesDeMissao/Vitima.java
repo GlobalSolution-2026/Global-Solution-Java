@@ -1,6 +1,6 @@
 package CondicoesDeMissao;
 
-public class Vitima {
+public class Vitima extends Regiao {
 
     public enum EstadoInicialSaude {
         Estavel, Grave, Risco_De_Vida
@@ -20,12 +20,13 @@ public class Vitima {
     private FaixaEtaria faixaEtaria;
     private OrigemNotificacao origemNotificacao;
 
-    public Vitima(String identificacao, EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria, OrigemNotificacao origemNotificacao, int qtdPessoas) {
+    public Vitima(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao, String identificacao, int qtdPessoas, EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria, OrigemNotificacao origemNotificacao) {
+        super(nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao);
         this.identificacao = identificacao;
+        this.qtdPessoas = qtdPessoas;
         this.estadoInicialSaude = estadoInicialSaude;
         this.faixaEtaria = faixaEtaria;
         this.origemNotificacao = origemNotificacao;
-        this.qtdPessoas = qtdPessoas;
     }
 
     public String getIdentificacao() {
@@ -77,3 +78,4 @@ public class Vitima {
                 "\n Quantidade de pessoas: " + qtdPessoas;
     }
 }
+

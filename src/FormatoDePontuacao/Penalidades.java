@@ -1,45 +1,23 @@
 package FormatoDePontuacao;
 
-public abstract class Penalidades {
-    private double penalidadeOperador, penalidadeVitima, penalidadeTecnologia, penalidadeEquipe;
+public interface Penalidades {
 
-    public Penalidades(double penalidadeOperador, double penalidadeVitima, double penalidadeTecnologia, double penalidadeEquipe) {
-        this.penalidadeOperador = penalidadeOperador;
-        this.penalidadeVitima = penalidadeVitima;
-        this.penalidadeTecnologia = penalidadeTecnologia;
-        this.penalidadeEquipe = penalidadeEquipe;
-    }
+    double getPenalidadeOperador();
+    void setPenalidadeOperador(double penalidadeOperador);
 
-    public double getPenalidadeOperador() {
-        return penalidadeOperador;
-    }
-    public void setPenalidadeOperador(double penalidadeOperador) {
-        this.penalidadeOperador = penalidadeOperador;
-    }
-    public double getPenalidadeVitima() {
-        return penalidadeVitima;
-    }
-    public void setPenalidadeVitima(double penalidadeVitima) {
-        this.penalidadeVitima = penalidadeVitima;
-    }
-    public double getPenalidadeTecnologia() {
-        return penalidadeTecnologia;
-    }
-    public void setPenalidadeTecnologia(double penalidadeTecnologia) {
-        this.penalidadeTecnologia = penalidadeTecnologia;
-    }
-    public double getPenalidadeEquipe() {
-        return penalidadeEquipe;
-    }
-    public void setPenalidadeEquipe(double penalidadeEquipe) {
-        this.penalidadeEquipe = penalidadeEquipe;
-    }
+    double getPenalidadeVitima();
+    void setPenalidadeVitima(double penalidadeVitima);
 
-    @Override
-    public String toString() {
-        return "Penalidades de Operador: " + penalidadeOperador +
-                "\nPenalidade de Vitima: " + penalidadeVitima +
-                "\nPenalidade de Tecnologia: " + penalidadeTecnologia +
-                "\nPenalidade de equipe de resgate: " + penalidadeEquipe;
+    double getPenalidadeTecnologia();
+    void setPenalidadeTecnologia(double penalidadeTecnologia);
+
+    double getPenalidadeEquipe();
+    void setPenalidadeEquipe(double penalidadeEquipe);
+
+    default String penalidadesToString() {
+        return "Penalidades de Operador: " + getPenalidadeOperador() +
+                "\nPenalidade de Vitima: " + getPenalidadeVitima() +
+                "\nPenalidade de Tecnologia: " + getPenalidadeTecnologia() +
+                "\nPenalidade de equipe de resgate: " + getPenalidadeEquipe();
     }
 }
