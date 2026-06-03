@@ -3,16 +3,17 @@ package FormatoDePontuacao;
 import CondicoesDeMissao.Vitima;
 
 public class CriteriosDePontuacao extends Vitima implements Penalidades {
-    private int riscoCenario;
-    private int decisoesOperador, pontuacaoFinal;
-    private int gravidade, urgencia, multiplicadorClima;
-    private double multiplicadorTerreno;
+    private int decisoesOperador;
+    private int gravidade, urgencia;
+    private double multiplicadorTerreno, multiplicadorClima;
+    private final double riscoCenario;
+    private final double pontuacaoFinal;
 
-    public CriteriosDePontuacao(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao, String identificacao, int qtdPessoas, EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria, OrigemNotificacao origemNotificacao, int riscoCenario, int decisoesOperador, int pontuacaoFinal, int gravidade, int urgencia, int multiplicadorClima, double multiplicadorTerreno) {
+    public CriteriosDePontuacao(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao, String identificacao, int qtdPessoas, EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria, OrigemNotificacao origemNotificacao, int riscoCenario, int decisoesOperador, double pontuacaoFinal, int gravidade, int urgencia, double multiplicadorClima, double multiplicadorTerreno) {
         super(nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao, identificacao, qtdPessoas, estadoInicialSaude, faixaEtaria, origemNotificacao);
-        this.riscoCenario = riscoCenario;
+        this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
         this.decisoesOperador = decisoesOperador;
-        this.pontuacaoFinal = pontuacaoFinal;
+        this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
         this.gravidade = gravidade;
         this.urgencia = urgencia;
         this.multiplicadorClima = multiplicadorClima;
@@ -25,13 +26,12 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
 
     public void setGravidade(int gravidade) {
         if (getEstadoInicialSaude().equals(EstadoInicialSaude.Estavel)) {
-            gravidade = 1;
+            this.gravidade = 1;
         } else if (getEstadoInicialSaude().equals(EstadoInicialSaude.Grave)) {
-            gravidade = 2;
+            this.gravidade = 2;
         } else if (getEstadoInicialSaude().equals(EstadoInicialSaude.Risco_De_Vida)) {
-            gravidade = 3;
+            this.gravidade = 3;
         }
-        this.gravidade = gravidade;
     }
 
     public int getUrgencia() {
@@ -40,11 +40,10 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
 
     public void setUrgencia(int urgencia) {
         if (getFaixaEtaria().equals(FaixaEtaria.Adulta)) {
-            urgencia = 1;
+            this.urgencia = 1;
         } else {
-            urgencia = 2;
+            this.urgencia = 2;
         }
-        this.urgencia = urgencia;
     }
 
     public double getMultiplicadorTerreno() {
@@ -53,24 +52,36 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
 
     public void setMultiplicadorTerreno(double multiplicadorTerreno) {
         if (getTipoDoTerreno().equals(TipoTerreno.URBANO)) {
-            multiplicadorTerreno = 1.0;
+            this.multiplicadorTerreno = 1.0;
         } else if (getTipoDoTerreno().equals(TipoTerreno.FLORESTA)) {
-            multiplicadorTerreno = 1.5;
+            this.multiplicadorTerreno = 1.5;
         } else if (getTipoDoTerreno().equals(TipoTerreno.MONTANHA)) {
-            multiplicadorTerreno = 1.8;
+            this.multiplicadorTerreno = 1.8;
         }
-        this.multiplicadorTerreno = multiplicadorTerreno;
+
     }
 
-    public int getMultiplicadorClima() {
+    public double getMultiplicadorClima() {
         return multiplicadorClima;
     }
 
-    public void setMultiplicadorClima(int multiplicadorClima) {
-        this.multiplicadorClima = multiplicadorClima;
+    public void setMultiplicadorClima(double multiplicadorClima) {
+        if (getNivelPrecipitacao().equals(nivelPrecipitacao.Sem_Chuva)) {
+            this.multiplicadorClima = 1;
+        } else if (getNivelPrecipitacao().equals(nivelPrecipitacao.Leve)) {
+            this.multiplicadorClima = 1.2;
+        } else if (getNivelPrecipitacao().equals(nivelPrecipitacao.Moderada)) {
+            this.multiplicadorClima = 1.5;
+        } else if (getNivelPrecipitacao().equals(nivelPrecipitacao.Intensa)) {
+            this.multiplicadorClima = 2.0;
+        }
+        if (getVisibilidade().equals(Visibilidade.Alta)) {
+            this.multiplicadorClima = multiplicadorClima + 0.3;
+        }
+
     }
 
-    public int getRiscoCenario() {
+    public double getRiscoCenario() {
         return riscoCenario;
     }
 
@@ -82,7 +93,7 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
         this.decisoesOperador = decisoesOperador;
     }
 
-    public int getPontuacaoFinal() {
+    public double getPontuacaoFinal() {
         return pontuacaoFinal;
     }
 
@@ -94,43 +105,23 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
     }
 
     @Override
-    public double getPenalidadeOperador() {
+    public double PenalidadeOperador() {
         return 0;
     }
 
     @Override
-    public void setPenalidadeOperador(double penalidadeOperador) {
-
-    }
-
-    @Override
-    public double getPenalidadeVitima() {
+    public double PenalidadeVitima() {
         return 0;
     }
 
     @Override
-    public void setPenalidadeVitima(double penalidadeVitima) {
-
-    }
-
-    @Override
-    public double getPenalidadeTecnologia() {
+    public double PenalidadeTecnologia() {
         return 0;
     }
 
     @Override
-    public void setPenalidadeTecnologia(double penalidadeTecnologia) {
-
-    }
-
-    @Override
-    public double getPenalidadeEquipe() {
+    public double PenalidadeEquipe() {
         return 0;
-    }
-
-    @Override
-    public void setPenalidadeEquipe(double penalidadeEquipe) {
-
     }
 }
-//FALTA CLIMA E AS PENALIDADES
+//FALTA  PENALIDADES

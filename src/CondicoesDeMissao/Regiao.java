@@ -1,6 +1,6 @@
 package CondicoesDeMissao;
 
-public class Regiao {
+public class Regiao extends CondicoesMetereologicas{
 
     public enum TipoTerreno {
         MONTANHA, FLORESTA, URBANO
@@ -15,12 +15,14 @@ public class Regiao {
     private TipoTerreno tipoDoTerreno;
     private SinalComunicacao sinalComunicacao;
 
-    public Regiao(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao) {
+    public Regiao(double temperatura, Visibilidade visibilidade, nivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento, String nomeRegiao, String coordenadasGPS, TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao) {
+        super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento);
         this.nomeRegiao = nomeRegiao;
         this.coordenadasGPS = coordenadasGPS;
-        this.tipoDoTerreno = TipoTerreno.valueOf(tipoDoTerreno.toUpperCase());
-        this.sinalComunicacao = SinalComunicacao.valueOf(sinalComunicacao.toUpperCase().replace(" ", "_"));
-    }
+        this.tipoDoTerreno = tipoDoTerreno;
+        this.sinalComunicacao = sinalComunicacao;
+
+}
 
     public String getNomeRegiao() {
         return nomeRegiao;

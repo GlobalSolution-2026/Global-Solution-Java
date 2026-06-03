@@ -2,22 +2,18 @@ package FormatoDePontuacao;
 
 public interface Penalidades {
 
-    double getPenalidadeOperador();
-    void setPenalidadeOperador(double penalidadeOperador);
+    double PenalidadeOperador();
 
-    double getPenalidadeVitima();
-    void setPenalidadeVitima(double penalidadeVitima);
+    double PenalidadeVitima();
 
-    double getPenalidadeTecnologia();
-    void setPenalidadeTecnologia(double penalidadeTecnologia);
+    double PenalidadeTecnologia();
 
-    double getPenalidadeEquipe();
-    void setPenalidadeEquipe(double penalidadeEquipe);
+    double PenalidadeEquipe();
 
     default String penalidadesToString() {
-        return "Penalidades de Operador: " + getPenalidadeOperador() +
-                "\nPenalidade de Vitima: " + getPenalidadeVitima() +
-                "\nPenalidade de Tecnologia: " + getPenalidadeTecnologia() +
-                "\nPenalidade de equipe de resgate: " + getPenalidadeEquipe();
+        return "Penalidades de Operador: " + PenalidadeOperador() +
+                "\nPenalidade de Vitima: " + PenalidadeVitima() +
+                "\nPenalidade de Tecnologia: " + PenalidadeTecnologia() +
+                "\nPenalidade de equipe de resgate: " + PenalidadeEquipe();
     }
 }
