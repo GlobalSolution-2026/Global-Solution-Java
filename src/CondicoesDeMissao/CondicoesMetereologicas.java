@@ -1,11 +1,14 @@
 package CondicoesDeMissao;
 
+import java.util.Scanner;
+
 public class CondicoesMetereologicas {
+
     public enum Visibilidade {
         Baixa, Moderada, Alta
     }
 
-    public enum nivelPrecipitacao {
+    public enum NivelPrecipitacao {
         Sem_Chuva, Leve, Moderada, Intensa
     }
 
@@ -13,12 +16,17 @@ public class CondicoesMetereologicas {
         Leve, Moderado, Forte
     }
 
-    private double temperatura;
-    private VelocidadeVento velocidadeVento;
-    private Visibilidade visibilidade;
-    private nivelPrecipitacao nivelPrecipitacao;
 
-    public CondicoesMetereologicas(double temperatura, Visibilidade visibilidade, nivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento) {
+    protected Scanner sc = new Scanner(System.in);
+
+    private double temperatura;
+    private Visibilidade visibilidade;
+    private NivelPrecipitacao nivelPrecipitacao;
+    private VelocidadeVento velocidadeVento;
+
+
+    public CondicoesMetereologicas(double temperatura, Visibilidade visibilidade,
+                                   NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento) {
         this.temperatura = temperatura;
         this.visibilidade = visibilidade;
         this.nivelPrecipitacao = nivelPrecipitacao;
@@ -30,7 +38,12 @@ public class CondicoesMetereologicas {
     }
 
     public void setTemperatura(double temperatura) {
-        this.temperatura = temperatura;
+        String input;
+        do {
+            System.out.println("Digite a temperatura: ");
+            input = sc.nextLine();
+        } while (input.trim().isEmpty());
+        this.temperatura = Double.parseDouble(input);
     }
 
     public Visibilidade getVisibilidade() {
@@ -41,11 +54,11 @@ public class CondicoesMetereologicas {
         this.visibilidade = visibilidade;
     }
 
-    public nivelPrecipitacao getNivelPrecipitacao() {
+    public NivelPrecipitacao getNivelPrecipitacao() {
         return nivelPrecipitacao;
     }
 
-    public void setNivelPrecipitacao(nivelPrecipitacao nivelPrecipitacao) {
+    public void setNivelPrecipitacao(NivelPrecipitacao nivelPrecipitacao) {
         this.nivelPrecipitacao = nivelPrecipitacao;
     }
 

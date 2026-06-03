@@ -1,12 +1,20 @@
 package EquipeDeResgate;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class OperadorUsuario {
-    private String nome, cpf, taxaAcerto;
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private Scanner sc = new Scanner(System.in);
+
+    private String nome;
+    private String cpf;
+    private String taxaAcerto;
     private LocalDate dataNascimento;
-    Scanner sc = new Scanner(System.in);
 
     public OperadorUsuario(String nome, String cpf, String taxaAcerto, LocalDate dataNascimento) {
         this.nome = nome;
@@ -16,7 +24,6 @@ public class OperadorUsuario {
     }
 
     public OperadorUsuario() {
-
     }
 
     public String getNome() {
@@ -57,12 +64,12 @@ public class OperadorUsuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         System.out.println("Digite a data de nascimento (dd/MM/yyyy): ");
-        dataNascimento = LocalDate.parse(sc.nextLine(), java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        while (dataNascimento.isAfter(LocalDate.now().minusYears(18))) {
+        LocalDate data = LocalDate.parse(sc.nextLine(), FORMATTER);
+        while (data.isAfter(LocalDate.now().minusYears(18))) {
             System.out.println("ERRO! Você deve ter pelo menos 18 anos. Digite uma data válida: ");
-            dataNascimento = LocalDate.parse(sc.nextLine(), java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            data = LocalDate.parse(sc.nextLine(), FORMATTER);
         }
-        this.dataNascimento = dataNascimento;
+        this.dataNascimento = data;
     }
 
     @Override
@@ -70,6 +77,6 @@ public class OperadorUsuario {
         return "Nome do operador: " + nome +
                 "\nCPF: " + cpf +
                 "\nTaxa de acerto: " + taxaAcerto + "%" +
-                "\nIdade: " + java.time.Period.between(dataNascimento, LocalDate.now()).getYears() + " anos";
+                "\nIdade: " + Period.between(dataNascimento, LocalDate.now()).getYears() + " anos";
     }
 }

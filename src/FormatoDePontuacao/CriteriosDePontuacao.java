@@ -1,24 +1,48 @@
 package FormatoDePontuacao;
 
 import CondicoesDeMissao.Vitima;
+import EquipeDeResgate.EquipeDeResgate;
 
 public class CriteriosDePontuacao extends Vitima implements Penalidades {
+
+
+    private final EquipeDeResgate equipeDeResgate;
+
     private int decisoesOperador;
-    private int gravidade, urgencia;
-    private double multiplicadorTerreno, multiplicadorClima;
+    private int gravidade;
+    private int urgencia;
+    private double multiplicadorTerreno;
+    private double multiplicadorClima;
+    private double taxaAcertoOperador;
     private final double riscoCenario;
     private final double pontuacaoFinal;
 
-    public CriteriosDePontuacao(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao, String identificacao, int qtdPessoas, EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria, OrigemNotificacao origemNotificacao, int riscoCenario, int decisoesOperador, double pontuacaoFinal, int gravidade, int urgencia, double multiplicadorClima, double multiplicadorTerreno) {
-        super(nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao, identificacao, qtdPessoas, estadoInicialSaude, faixaEtaria, origemNotificacao);
-        this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
-        this.decisoesOperador = decisoesOperador;
-        this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
-        this.gravidade = gravidade;
-        this.urgencia = urgencia;
+
+    public CriteriosDePontuacao(double temperatura, Visibilidade visibilidade,
+                                NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento,
+                                String nomeRegiao, String coordenadasGPS,
+                                TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao,
+                                String identificacao, int qtdPessoas, int qtdPessoasResgatadas,
+                                EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria,
+                                OrigemNotificacao origemNotificacao,
+                                double taxaAcertoOperador, double multiplicadorClima,
+                                double multiplicadorTerreno, int urgencia, int gravidade,
+                                int decisoesOperador, EquipeDeResgate equipeDeResgate) {
+        super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento,
+                nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao,
+                identificacao, qtdPessoas, qtdPessoasResgatadas,
+                estadoInicialSaude, faixaEtaria, origemNotificacao);
+        this.taxaAcertoOperador = taxaAcertoOperador;
         this.multiplicadorClima = multiplicadorClima;
         this.multiplicadorTerreno = multiplicadorTerreno;
+        this.urgencia = urgencia;
+        this.gravidade = gravidade;
+        this.decisoesOperador = decisoesOperador;
+        this.equipeDeResgate = equipeDeResgate;
+        this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
+        this.pontuacaoFinal = (this.riscoCenario * 0.40) + (decisoesOperador * 0.60);
     }
+
 
     public int getGravidade() {
         return gravidade;
@@ -58,7 +82,6 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
         } else if (getTipoDoTerreno().equals(TipoTerreno.MONTANHA)) {
             this.multiplicadorTerreno = 1.8;
         }
-
     }
 
     public double getMultiplicadorClima() {
@@ -66,19 +89,22 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
     }
 
     public void setMultiplicadorClima(double multiplicadorClima) {
-        if (getNivelPrecipitacao().equals(nivelPrecipitacao.Sem_Chuva)) {
-            this.multiplicadorClima = 1;
-        } else if (getNivelPrecipitacao().equals(nivelPrecipitacao.Leve)) {
+        if (getNivelPrecipitacao().equals(NivelPrecipitacao.Sem_Chuva)) {
+            this.multiplicadorClima = 1.0;
+        } else if (getNivelPrecipitacao().equals(NivelPrecipitacao.Leve)) {
             this.multiplicadorClima = 1.2;
-        } else if (getNivelPrecipitacao().equals(nivelPrecipitacao.Moderada)) {
+        } else if (getNivelPrecipitacao().equals(NivelPrecipitacao.Moderada)) {
             this.multiplicadorClima = 1.5;
-        } else if (getNivelPrecipitacao().equals(nivelPrecipitacao.Intensa)) {
+        } else if (getNivelPrecipitacao().equals(NivelPrecipitacao.Intensa)) {
             this.multiplicadorClima = 2.0;
         }
         if (getVisibilidade().equals(Visibilidade.Alta)) {
-            this.multiplicadorClima = multiplicadorClima + 0.3;
+            this.multiplicadorClima = this.multiplicadorClima + 0.3;
         }
+    }
 
+    public double getTaxaAcertoOperador() {
+        return taxaAcertoOperador;
     }
 
     public double getRiscoCenario() {
@@ -97,6 +123,10 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
         return pontuacaoFinal;
     }
 
+    public EquipeDeResgate getEquipeDeResgate() {
+        return equipeDeResgate;
+    }
+
     @Override
     public String toString() {
         return "Risco de cenário: " + riscoCenario +
@@ -106,22 +136,27 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
 
     @Override
     public double PenalidadeOperador() {
-        return 0;
+        if (taxaAcertoOperador >= 80) return 0.0;
+        else if (taxaAcertoOperador >= 60) return -5.0;
+        else if (taxaAcertoOperador >= 40) return -10.0;
+        else return -20.0;
     }
 
     @Override
     public double PenalidadeVitima() {
-        return 0;
+        int perdas = getQtdPessoas() - getQtdPessoasResgatadas();
+        return perdas * -10.0;
     }
 
     @Override
     public double PenalidadeTecnologia() {
-        return 0;
+        int perdas = equipeDeResgate.getQtdTecnologias() - equipeDeResgate.getQtdTecnologiasRetornaram();
+        return perdas * -5.0;
     }
 
     @Override
     public double PenalidadeEquipe() {
-        return 0;
+        int perdas = equipeDeResgate.getQtdAgentesEnviados() - equipeDeResgate.getQtdAgentesRetornaram();
+        return perdas * -15.0;
     }
 }
-//FALTA  PENALIDADES
