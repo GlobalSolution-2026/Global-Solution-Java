@@ -2,35 +2,21 @@ package CondicoesDeMissao;
 
 public class Vitima extends Regiao {
 
-
-    public enum EstadoInicialSaude {
-        Estavel, Grave, Risco_De_Vida
-    }
-
-    public enum FaixaEtaria {
-        Crianca, Adulta, Terceira_Idade
-    }
-
-    public enum OrigemNotificacao {
-        Satelite, Ligacao, SMS
-    }
-
-
     private String identificacao;
     private int qtdPessoas;
     private int qtdPessoasResgatadas;
-    private EstadoInicialSaude estadoInicialSaude;
-    private FaixaEtaria faixaEtaria;
-    private OrigemNotificacao origemNotificacao;
+    private String estadoInicialSaude;
+    private String faixaEtaria;
+    private String origemNotificacao;
 
 
-    public Vitima(double temperatura, Visibilidade visibilidade,
-                  NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento,
+    public Vitima(double temperatura, String visibilidade,
+                  String nivelPrecipitacao, String velocidadeVento,
                   String nomeRegiao, String coordenadasGPS,
-                  TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao,
+                  String tipoDoTerreno, String sinalComunicacao,
                   String identificacao, int qtdPessoas, int qtdPessoasResgatadas,
-                  EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria,
-                  OrigemNotificacao origemNotificacao) {
+                  String estadoInicialSaude, String faixaEtaria,
+                  String origemNotificacao) {
         super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento,
                 nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao);
         this.identificacao = identificacao;
@@ -41,20 +27,28 @@ public class Vitima extends Regiao {
         this.origemNotificacao = origemNotificacao;
     }
 
+    public Vitima() {
+    }
+
 
     public String getIdentificacao() {
         return identificacao;
     }
 
-    public void setIdentificacao(String identificacao) {
-        this.identificacao = identificacao;
+    public void setIdentificacao() {
+        String input;
+        do {
+            System.out.println("Digite a identificação da vítima: ");
+            input = sc.nextLine().trim();
+        } while (input.isEmpty());
+        this.identificacao = input;
     }
 
     public int getQtdPessoas() {
         return qtdPessoas;
     }
 
-    public void setQtdPessoas(int qtdPessoas) {
+    public void setQtdPessoas() {
         String input;
         int valor;
         do {
@@ -69,32 +63,75 @@ public class Vitima extends Regiao {
         return qtdPessoasResgatadas;
     }
 
-    public void setQtdPessoasResgatadas(int qtdPessoasResgatadas) {
-        this.qtdPessoasResgatadas = qtdPessoasResgatadas;
+    public void setQtdPessoasResgatadas() {
+        String input;
+        int valor;
+        do {
+            System.out.println("Digite a quantidade de pessoas resgatadas (máx: " + qtdPessoas + "): ");
+            input = sc.nextLine().trim();
+            valor = Integer.parseInt(input);
+        } while (valor < 0 || valor > qtdPessoas);
+        this.qtdPessoasResgatadas = valor;
     }
 
-    public EstadoInicialSaude getEstadoInicialSaude() {
+    public String getEstadoInicialSaude() {
         return estadoInicialSaude;
     }
 
-    public void setEstadoInicialSaude(EstadoInicialSaude estadoInicialSaude) {
-        this.estadoInicialSaude = estadoInicialSaude;
+    public void setEstadoInicialSaude() {
+        String input;
+        do {
+            System.out.println("Informe o estado inicial de saúde (Estavel / Grave / Risco_De_Vida): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("estavel") && !input.equals("grave") && !input.equals("risco_de_vida"));
+
+        if (input.equals("estavel")) {
+            this.estadoInicialSaude = "Estavel";
+        } else if (input.equals("grave")) {
+            this.estadoInicialSaude = "Grave";
+        } else {
+            this.estadoInicialSaude = "Risco_De_Vida";
+        }
     }
 
-    public FaixaEtaria getFaixaEtaria() {
+    public String getFaixaEtaria() {
         return faixaEtaria;
     }
 
-    public void setFaixaEtaria(FaixaEtaria faixaEtaria) {
-        this.faixaEtaria = faixaEtaria;
+    public void setFaixaEtaria() {
+        String input;
+        do {
+            System.out.println("Informe a faixa etária (Crianca / Adulta / Terceira_Idade): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("crianca") && !input.equals("adulta") && !input.equals("terceira_idade"));
+
+        if (input.equals("crianca")) {
+            this.faixaEtaria = "Crianca";
+        } else if (input.equals("adulta")) {
+            this.faixaEtaria = "Adulta";
+        } else {
+            this.faixaEtaria = "Terceira_Idade";
+        }
     }
 
-    public OrigemNotificacao getOrigemNotificacao() {
+    public String getOrigemNotificacao() {
         return origemNotificacao;
     }
 
-    public void setOrigemNotificacao(OrigemNotificacao origemNotificacao) {
-        this.origemNotificacao = origemNotificacao;
+    public void setOrigemNotificacao() {
+        String input;
+        do {
+            System.out.println("Informe a origem da notificação (Satelite / Ligacao / SMS): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("satelite") && !input.equals("ligacao") && !input.equals("sms"));
+
+        if (input.equals("satelite")) {
+            this.origemNotificacao = "Satelite";
+        } else if (input.equals("ligacao")) {
+            this.origemNotificacao = "Ligacao";
+        } else {
+            this.origemNotificacao = "SMS";
+        }
     }
 
     @Override

@@ -2,26 +2,15 @@ package CondicoesDeMissao;
 
 public class Regiao extends CondicoesMetereologicas {
 
-
-    public Regiao() {
-
-    }
-
-    public enum TipoTerreno {
-        MONTANHA, FLORESTA, URBANO
-    }
-
-    public enum SinalComunicacao {
-        SEM_COBERTURA, COM_COBERTURA
-    }
-
     private String nomeRegiao;
     private String coordenadasGPS;
-    private TipoTerreno tipoDoTerreno;
-    private SinalComunicacao sinalComunicacao;
+    private String tipoDoTerreno;
+    private String sinalComunicacao;
 
 
-    public Regiao(double temperatura, Visibilidade visibilidade, NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento, String nomeRegiao, String coordenadasGPS, TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao) {
+    public Regiao(double temperatura, String visibilidade, String nivelPrecipitacao,
+                  String velocidadeVento, String nomeRegiao, String coordenadasGPS,
+                  String tipoDoTerreno, String sinalComunicacao) {
         super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento);
         this.nomeRegiao = nomeRegiao;
         this.coordenadasGPS = coordenadasGPS;
@@ -29,48 +18,72 @@ public class Regiao extends CondicoesMetereologicas {
         this.sinalComunicacao = sinalComunicacao;
     }
 
+    public Regiao() {
+    }
 
 
     public String getNomeRegiao() {
         return nomeRegiao;
     }
 
-    public void setNomeRegiao(String nomeRegiao) {
+    public void setNomeRegiao() {
         String input;
         do {
-            System.out.println("Digite o nome da região: ");
-            input = sc.nextLine();
-        } while (input.trim().isEmpty() || input.length() < 3);
-        this.nomeRegiao = nomeRegiao;
+            System.out.println("Digite o nome da região (mínimo 3 caracteres): ");
+            input = sc.nextLine().trim();
+        } while (input.length() < 3);
+        this.nomeRegiao = input;
     }
 
     public String getCoordenadasGPS() {
         return coordenadasGPS;
     }
 
-    public void setCoordenadasGPS(String coordenadasGPS) {
+    public void setCoordenadasGPS() {
         String input;
         do {
-            System.out.println("Digite as coordenadas: ");
-            input = sc.nextLine();
-        } while (input.trim().isEmpty());
-        this.coordenadasGPS = String.valueOf(Integer.parseInt(input));
+            System.out.println("Digite as coordenadas GPS (ex: -23.5505, -46.6333): ");
+            input = sc.nextLine().trim();
+        } while (input.isEmpty());
+        this.coordenadasGPS = input;
     }
 
-    public TipoTerreno getTipoDoTerreno() {
+    public String getTipoDoTerreno() {
         return tipoDoTerreno;
     }
 
-    public void setTipoDoTerreno(TipoTerreno tipoDoTerreno) {
-        this.tipoDoTerreno = tipoDoTerreno;
+    public void setTipoDoTerreno() {
+        String input;
+        do {
+            System.out.println("Informe o tipo de terreno (Montanha / Floresta / Urbano): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("montanha") && !input.equals("floresta") && !input.equals("urbano"));
+
+        if (input.equals("montanha")) {
+            this.tipoDoTerreno = "Montanha";
+        } else if (input.equals("floresta")) {
+            this.tipoDoTerreno = "Floresta";
+        } else {
+            this.tipoDoTerreno = "Urbano";
+        }
     }
 
-    public SinalComunicacao getSinalComunicacao() {
+    public String getSinalComunicacao() {
         return sinalComunicacao;
     }
 
-    public void setSinalComunicacao(SinalComunicacao sinalComunicacao) {
-        this.sinalComunicacao = sinalComunicacao;
+    public void setSinalComunicacao() {
+        String input;
+        do {
+            System.out.println("Informe o sinal de comunicação (Com_Cobertura / Sem_Cobertura): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("com_cobertura") && !input.equals("sem_cobertura"));
+
+        if (input.equals("com_cobertura")) {
+            this.sinalComunicacao = "Com_Cobertura";
+        } else {
+            this.sinalComunicacao = "Sem_Cobertura";
+        }
     }
 
     @Override
@@ -81,4 +94,3 @@ public class Regiao extends CondicoesMetereologicas {
                 "\nSinal: " + sinalComunicacao;
     }
 }
-//TERMINAR SETS AQUI

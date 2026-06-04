@@ -2,45 +2,88 @@ package FormatoDePontuacao;
 
 import CondicoesDeMissao.Vitima;
 import EquipeDeResgate.EquipeDeResgate;
+import EquipeDeResgate.OperadorUsuario;
 
-public class CriteriosDePontuacao extends Vitima implements Penalidades {
+public class CriteriosDePontuacao implements Penalidades {
 
+    private Vitima vitima;
+    private EquipeDeResgate equipeDeResgate;
+    private OperadorUsuario operador;
 
-    private final EquipeDeResgate equipeDeResgate;
-
-    private int decisoesOperador;
     private int gravidade;
     private int urgencia;
     private double multiplicadorTerreno;
     private double multiplicadorClima;
-    private double taxaAcertoOperador;
-    private final double riscoCenario;
-    private final double pontuacaoFinal;
+    private double riscoCenario;
+    private int decisoesOperador;
+    private double pontuacaoFinal;
 
 
-    public CriteriosDePontuacao(double temperatura, Visibilidade visibilidade,
-                                NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento,
-                                String nomeRegiao, String coordenadasGPS,
-                                TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao,
-                                String identificacao, int qtdPessoas, int qtdPessoasResgatadas,
-                                EstadoInicialSaude estadoInicialSaude, FaixaEtaria faixaEtaria,
-                                OrigemNotificacao origemNotificacao,
-                                double taxaAcertoOperador, double multiplicadorClima,
-                                double multiplicadorTerreno, int urgencia, int gravidade,
-                                int decisoesOperador, EquipeDeResgate equipeDeResgate) {
-        super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento,
-                nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao,
-                identificacao, qtdPessoas, qtdPessoasResgatadas,
-                estadoInicialSaude, faixaEtaria, origemNotificacao);
-        this.taxaAcertoOperador = taxaAcertoOperador;
-        this.multiplicadorClima = multiplicadorClima;
-        this.multiplicadorTerreno = multiplicadorTerreno;
-        this.urgencia = urgencia;
-        this.gravidade = gravidade;
-        this.decisoesOperador = decisoesOperador;
+    public CriteriosDePontuacao(Vitima vitima, EquipeDeResgate equipeDeResgate, OperadorUsuario operador) {
+        this.vitima = vitima;
         this.equipeDeResgate = equipeDeResgate;
+        this.operador = operador;
+        calcularGravidade();
+        calcularUrgencia();
+        calcularMultiplicadorTerreno();
+        calcularMultiplicadorClima();
         this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
-        this.pontuacaoFinal = (this.riscoCenario * 0.40) + (decisoesOperador * 0.60);
+        this.decisoesOperador = 0;
+        this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
+    }
+
+
+    private void calcularGravidade() {
+        String saude = vitima.getEstadoInicialSaude();
+        if (saude.equals("Estavel")) {
+            this.gravidade = 1;
+        } else if (saude.equals("Grave")) {
+            this.gravidade = 2;
+        } else {
+            this.gravidade = 3;
+        }
+    }
+
+    private void calcularUrgencia() {
+        String faixa = vitima.getFaixaEtaria();
+        if (faixa.equals("Adulta")) {
+            this.urgencia = 1;
+        } else {
+            this.urgencia = 2;
+        }
+    }
+
+    private void calcularMultiplicadorTerreno() {
+        String terreno = vitima.getTipoDoTerreno();
+        if (terreno.equals("Urbano")) {
+            this.multiplicadorTerreno = 1.0;
+        } else if (terreno.equals("Floresta")) {
+            this.multiplicadorTerreno = 1.5;
+        } else {
+            this.multiplicadorTerreno = 1.8;
+        }
+    }
+
+    private void calcularMultiplicadorClima() {
+        String precipitacao = vitima.getNivelPrecipitacao();
+        if (precipitacao.equals("Sem_Chuva")) {
+            this.multiplicadorClima = 1.0;
+        } else if (precipitacao.equals("Leve")) {
+            this.multiplicadorClima = 1.2;
+        } else if (precipitacao.equals("Moderada")) {
+            this.multiplicadorClima = 1.5;
+        } else {
+            this.multiplicadorClima = 2.0;
+        }
+
+        if (vitima.getVisibilidade().equals("Alta")) {
+            this.multiplicadorClima = this.multiplicadorClima + 0.3;
+        }
+    }
+
+    public void recalcularPontuacao() {
+        this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
+        this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
     }
 
 
@@ -48,63 +91,16 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
         return gravidade;
     }
 
-    public void setGravidade(int gravidade) {
-        if (getEstadoInicialSaude().equals(EstadoInicialSaude.Estavel)) {
-            this.gravidade = 1;
-        } else if (getEstadoInicialSaude().equals(EstadoInicialSaude.Grave)) {
-            this.gravidade = 2;
-        } else if (getEstadoInicialSaude().equals(EstadoInicialSaude.Risco_De_Vida)) {
-            this.gravidade = 3;
-        }
-    }
-
     public int getUrgencia() {
         return urgencia;
-    }
-
-    public void setUrgencia(int urgencia) {
-        if (getFaixaEtaria().equals(FaixaEtaria.Adulta)) {
-            this.urgencia = 1;
-        } else {
-            this.urgencia = 2;
-        }
     }
 
     public double getMultiplicadorTerreno() {
         return multiplicadorTerreno;
     }
 
-    public void setMultiplicadorTerreno(double multiplicadorTerreno) {
-        if (getTipoDoTerreno().equals(TipoTerreno.URBANO)) {
-            this.multiplicadorTerreno = 1.0;
-        } else if (getTipoDoTerreno().equals(TipoTerreno.FLORESTA)) {
-            this.multiplicadorTerreno = 1.5;
-        } else if (getTipoDoTerreno().equals(TipoTerreno.MONTANHA)) {
-            this.multiplicadorTerreno = 1.8;
-        }
-    }
-
     public double getMultiplicadorClima() {
         return multiplicadorClima;
-    }
-
-    public void setMultiplicadorClima(double multiplicadorClima) {
-        if (getNivelPrecipitacao().equals(NivelPrecipitacao.Sem_Chuva)) {
-            this.multiplicadorClima = 1.0;
-        } else if (getNivelPrecipitacao().equals(NivelPrecipitacao.Leve)) {
-            this.multiplicadorClima = 1.2;
-        } else if (getNivelPrecipitacao().equals(NivelPrecipitacao.Moderada)) {
-            this.multiplicadorClima = 1.5;
-        } else if (getNivelPrecipitacao().equals(NivelPrecipitacao.Intensa)) {
-            this.multiplicadorClima = 2.0;
-        }
-        if (getVisibilidade().equals(Visibilidade.Alta)) {
-            this.multiplicadorClima = this.multiplicadorClima + 0.3;
-        }
-    }
-
-    public double getTaxaAcertoOperador() {
-        return taxaAcertoOperador;
     }
 
     public double getRiscoCenario() {
@@ -117,46 +113,66 @@ public class CriteriosDePontuacao extends Vitima implements Penalidades {
 
     public void setDecisoesOperador(int decisoesOperador) {
         this.decisoesOperador = decisoesOperador;
+        recalcularPontuacao();
     }
 
     public double getPontuacaoFinal() {
         return pontuacaoFinal;
     }
 
+    public Vitima getVitima() {
+        return vitima;
+    }
+
     public EquipeDeResgate getEquipeDeResgate() {
         return equipeDeResgate;
     }
 
+    public OperadorUsuario getOperador() {
+        return operador;
+    }
+
+
     @Override
-    public String toString() {
-        return "Risco de cenário: " + riscoCenario +
-                "\nDecisões do operador: " + decisoesOperador +
-                "\nPontuação final: " + pontuacaoFinal;
+    public double penalidadeOperador() {
+        double taxa = operador.getTaxaAcerto();
+        if (taxa >= 80) {
+            return 0.0;
+        } else if (taxa >= 60) {
+            return -5.0;
+        } else if (taxa >= 40) {
+            return -10.0;
+        } else {
+            return -20.0;
+        }
     }
 
     @Override
-    public double PenalidadeOperador() {
-        if (taxaAcertoOperador >= 80) return 0.0;
-        else if (taxaAcertoOperador >= 60) return -5.0;
-        else if (taxaAcertoOperador >= 40) return -10.0;
-        else return -20.0;
-    }
-
-    @Override
-    public double PenalidadeVitima() {
-        int perdas = getQtdPessoas() - getQtdPessoasResgatadas();
+    public double penalidadeVitima() {
+        int perdas = vitima.getQtdPessoas() - vitima.getQtdPessoasResgatadas();
         return perdas * -10.0;
     }
 
     @Override
-    public double PenalidadeTecnologia() {
+    public double penalidadeTecnologia() {
         int perdas = equipeDeResgate.getQtdTecnologias() - equipeDeResgate.getQtdTecnologiasRetornaram();
         return perdas * -5.0;
     }
 
     @Override
-    public double PenalidadeEquipe() {
+    public double penalidadeEquipe() {
         int perdas = equipeDeResgate.getQtdAgentesEnviados() - equipeDeResgate.getQtdAgentesRetornaram();
         return perdas * -15.0;
+    }
+
+    @Override
+    public String toString() {
+        return "Gravidade: " + gravidade +
+                "\nUrgência: " + urgencia +
+                "\nMultiplicador de Terreno: " + multiplicadorTerreno +
+                "\nMultiplicador de Clima: " + multiplicadorClima +
+                "\nRisco de Cenário: " + riscoCenario +
+                "\nDecisões do Operador: " + decisoesOperador +
+                "\nPontuação Final: " + pontuacaoFinal;
     }
 }

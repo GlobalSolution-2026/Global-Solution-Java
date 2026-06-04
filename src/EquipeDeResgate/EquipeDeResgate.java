@@ -1,112 +1,162 @@
 package EquipeDeResgate;
 
 import CondicoesDeMissao.Tecnologia;
-
 import java.util.Scanner;
 
 public class EquipeDeResgate implements Tecnologia {
 
-    public enum NomeEquipe {
-        Alpha, Bravo, Charlie
-    }
-
-    public enum Especialidade {
-        Terrestre, Aquatico, Aerea
-    }
-
-
     private Scanner sc = new Scanner(System.in);
 
+    private String nomeEquipe;
+    private String especialidade;
     private String tempoDeResposta;
-    private Especialidade especialidade;
-    private NomeEquipe nomeEquipe;
     private int qtdTecnologias;
     private int qtdTecnologiasRetornaram;
     private int qtdAgentesEnviados;
     private int qtdAgentesRetornaram;
 
 
-    public EquipeDeResgate(String tempoDeResposta, Especialidade especialidade,
-                           NomeEquipe nomeEquipe, int qtdTecnologias,
-                           int qtdTecnologiasRetornaram) {
-        this.tempoDeResposta = tempoDeResposta;
-        this.especialidade = especialidade;
+    public EquipeDeResgate(String nomeEquipe, String especialidade, String tempoDeResposta,
+                           int qtdTecnologias, int qtdTecnologiasRetornaram,
+                           int qtdAgentesEnviados, int qtdAgentesRetornaram) {
         this.nomeEquipe = nomeEquipe;
+        this.especialidade = especialidade;
+        this.tempoDeResposta = tempoDeResposta;
         this.qtdTecnologias = qtdTecnologias;
         this.qtdTecnologiasRetornaram = qtdTecnologiasRetornaram;
+        this.qtdAgentesEnviados = qtdAgentesEnviados;
+        this.qtdAgentesRetornaram = qtdAgentesRetornaram;
     }
 
-    public NomeEquipe getNomeEquipe() {
+    public EquipeDeResgate() {
+    }
+
+
+    public String getNomeEquipe() {
         return nomeEquipe;
     }
 
-    public void setNomeEquipe(NomeEquipe nomeEquipe) {
-        this.nomeEquipe = nomeEquipe;
+    public void setNomeEquipe() {
+        String input;
+        do {
+            System.out.println("Informe o nome da equipe (Alpha / Bravo / Charlie): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("alpha") && !input.equals("bravo") && !input.equals("charlie"));
+
+        if (input.equals("alpha")) {
+            this.nomeEquipe = "Alpha";
+        } else if (input.equals("bravo")) {
+            this.nomeEquipe = "Bravo";
+        } else {
+            this.nomeEquipe = "Charlie";
+        }
     }
 
-    public Especialidade getEspecialidade() {
+    public String getEspecialidade() {
         return especialidade;
     }
 
-    public void setEspecialidade(Especialidade especialidade) {
-        this.especialidade = especialidade;
+    public void setEspecialidade() {
+        String input;
+        do {
+            System.out.println("Informe a especialidade da equipe (Terrestre / Aquatico / Aerea): ");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (!input.equals("terrestre") && !input.equals("aquatico") && !input.equals("aerea"));
+
+        if (input.equals("terrestre")) {
+            this.especialidade = "Terrestre";
+        } else if (input.equals("aquatico")) {
+            this.especialidade = "Aquatico";
+        } else {
+            this.especialidade = "Aerea";
+        }
     }
 
     public String getTempoDeResposta() {
         return tempoDeResposta;
     }
 
-    public void setTempoDeResposta(String tempoDeResposta) {
+    public void setTempoDeResposta() {
         String input;
         do {
-            System.out.println("Digite o tempo de resposta (Curto, Medio, Longo): ");
+            System.out.println("Digite o tempo de resposta (Curto / Medio / Longo): ");
             input = sc.nextLine().trim().toLowerCase();
         } while (!input.equals("curto") && !input.equals("medio") && !input.equals("longo"));
-        this.tempoDeResposta = input;
+
+        if (input.equals("curto")) {
+            this.tempoDeResposta = "Curto";
+        } else if (input.equals("medio")) {
+            this.tempoDeResposta = "Medio";
+        } else {
+            this.tempoDeResposta = "Longo";
+        }
     }
 
     public int getQtdTecnologias() {
         return qtdTecnologias;
     }
 
-    public void setQtdTecnologias(int qtdTecnologias) {
-        this.qtdTecnologias = qtdTecnologias;
+    public void setQtdTecnologias() {
+        this.qtdTecnologias = 0;
     }
 
     public int getQtdTecnologiasRetornaram() {
         return qtdTecnologiasRetornaram;
     }
 
-    public void setQtdTecnologiasRetornaram(int qtdTecnologiasRetornaram) {
-        this.qtdTecnologiasRetornaram = qtdTecnologiasRetornaram;
+    public void setQtdTecnologiasRetornaram() {
+        String input;
+        int valor;
+        do {
+            System.out.println("Digite a quantidade de tecnologias que retornaram (máx: " + qtdTecnologias + "): ");
+            input = sc.nextLine().trim();
+            valor = Integer.parseInt(input);
+        } while (valor < 0 || valor > qtdTecnologias);
+        this.qtdTecnologiasRetornaram = valor;
     }
 
     public int getQtdAgentesEnviados() {
         return qtdAgentesEnviados;
     }
 
-    public void setQtdAgentesEnviados(int qtdAgentesEnviados) {
-        this.qtdAgentesEnviados = qtdAgentesEnviados;
+    public void setQtdAgentesEnviados() {
+        String input;
+        int valor;
+        do {
+            System.out.println("Digite a quantidade de agentes enviados: ");
+            input = sc.nextLine().trim();
+            valor = Integer.parseInt(input);
+        } while (valor <= 0);
+        this.qtdAgentesEnviados = valor;
     }
 
     public int getQtdAgentesRetornaram() {
         return qtdAgentesRetornaram;
     }
 
-    public void setQtdAgentesRetornaram(int qtdAgentesRetornaram) {
-        this.qtdAgentesRetornaram = qtdAgentesRetornaram;
+    public void setQtdAgentesRetornaram() {
+        String input;
+        int valor;
+        do {
+            System.out.println("Digite a quantidade de agentes que retornaram (máx: " + qtdAgentesEnviados + "): ");
+            input = sc.nextLine().trim();
+            valor = Integer.parseInt(input);
+        } while (valor < 0 || valor > qtdAgentesEnviados);
+        this.qtdAgentesRetornaram = valor;
     }
 
     @Override
     public void nomeTecnologia() {
-        System.out.println("Informe a tecnologia que vai utilizar, lembrando que o satélite estará presente mesmo selecionando somente drones.");
+        this.qtdTecnologias = 0;
+        System.out.println("Informe as tecnologias utilizadas (o satélite LEO estará presente em qualquer seleção com drones).");
         System.out.println(
                 "1 - Drone" +
-                        "\n2 - Drone de Mantimentos" +
-                        "\n3 - Apenas o LEO" +
-                        "\n0 - CONTINUAR PROCESSO");
+                "\n2 - Drone de Mantimentos" +
+                "\n3 - Apenas o LEO" +
+                "\n0 - Continuar");
 
-        int input = sc.nextInt();
+        String inputStr = sc.nextLine().trim();
+        int input = Integer.parseInt(inputStr);
 
         while (input != 0) {
             switch (input) {
@@ -120,10 +170,11 @@ public class EquipeDeResgate implements Tecnologia {
                 default:
                     System.out.println("Opção inválida!");
             }
-            input = sc.nextInt();
+            inputStr = sc.nextLine().trim();
+            input = Integer.parseInt(inputStr);
         }
 
-        System.out.println("Tecnologias selecionadas com sucesso!");
+        System.out.println("Tecnologias selecionadas: " + qtdTecnologias);
     }
 
     @Override
@@ -131,19 +182,19 @@ public class EquipeDeResgate implements Tecnologia {
         boolean statusDisponibilidadeDrone = true;
         boolean statusDisponibilidadeLEO = true;
 
-        System.out.printf("""
-                        \nDisponibilidade de Dispositivos:
-                        - Drone = %b
-                        - LEO = %b
-                        """,
-                statusDisponibilidadeDrone,
-                statusDisponibilidadeLEO);
+        System.out.println("\nDisponibilidade de Dispositivos:");
+        System.out.println("- Drone = " + statusDisponibilidadeDrone);
+        System.out.println("- LEO = " + statusDisponibilidadeLEO);
     }
 
     @Override
     public String toString() {
         return "Nome da equipe: " + nomeEquipe +
                 "\nEspecialidade: " + especialidade +
-                "\nTempo de Resposta: " + tempoDeResposta;
+                "\nTempo de Resposta: " + tempoDeResposta +
+                "\nAgentes enviados: " + qtdAgentesEnviados +
+                "\nAgentes retornaram: " + qtdAgentesRetornaram +
+                "\nTecnologias utilizadas: " + qtdTecnologias +
+                "\nTecnologias retornaram: " + qtdTecnologiasRetornaram;
     }
 }
