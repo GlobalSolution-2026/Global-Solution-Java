@@ -3,6 +3,10 @@ package CondicoesDeMissao;
 public class Regiao extends CondicoesMetereologicas {
 
 
+    public Regiao() {
+
+    }
+
     public enum TipoTerreno {
         MONTANHA, FLORESTA, URBANO
     }
@@ -17,10 +21,7 @@ public class Regiao extends CondicoesMetereologicas {
     private SinalComunicacao sinalComunicacao;
 
 
-    public Regiao(double temperatura, Visibilidade visibilidade,
-                  NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento,
-                  String nomeRegiao, String coordenadasGPS,
-                  TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao) {
+    public Regiao(double temperatura, Visibilidade visibilidade, NivelPrecipitacao nivelPrecipitacao, VelocidadeVento velocidadeVento, String nomeRegiao, String coordenadasGPS, TipoTerreno tipoDoTerreno, SinalComunicacao sinalComunicacao) {
         super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento);
         this.nomeRegiao = nomeRegiao;
         this.coordenadasGPS = coordenadasGPS;
@@ -28,11 +29,18 @@ public class Regiao extends CondicoesMetereologicas {
         this.sinalComunicacao = sinalComunicacao;
     }
 
+
+
     public String getNomeRegiao() {
         return nomeRegiao;
     }
 
     public void setNomeRegiao(String nomeRegiao) {
+        String input;
+        do {
+            System.out.println("Digite o nome da região: ");
+            input = sc.nextLine();
+        } while (input.trim().isEmpty() || input.length() < 3);
         this.nomeRegiao = nomeRegiao;
     }
 
@@ -41,7 +49,12 @@ public class Regiao extends CondicoesMetereologicas {
     }
 
     public void setCoordenadasGPS(String coordenadasGPS) {
-        this.coordenadasGPS = coordenadasGPS;
+        String input;
+        do {
+            System.out.println("Digite as coordenadas: ");
+            input = sc.nextLine();
+        } while (input.trim().isEmpty());
+        this.coordenadasGPS = String.valueOf(Integer.parseInt(input));
     }
 
     public TipoTerreno getTipoDoTerreno() {
@@ -68,3 +81,4 @@ public class Regiao extends CondicoesMetereologicas {
                 "\nSinal: " + sinalComunicacao;
     }
 }
+//TERMINAR SETS AQUI

@@ -1,3 +1,5 @@
+import CondicoesDeMissao.CondicoesMetereologicas;
+import CondicoesDeMissao.Regiao;
 import EquipeDeResgate.OperadorUsuario;
 import java.util.Scanner;
 
@@ -12,7 +14,8 @@ public class Main {
     public static void main(String[] args){
        Scanner sc = new Scanner(System.in);
        OperadorUsuario operador = new OperadorUsuario();
-
+       CondicoesMetereologicas condicoesMetereologicas = new CondicoesMetereologicas();
+        Regiao regiao = new Regiao();
 
         System.out.println("""
 ========== DADOS DE OPERADOS ==========
@@ -22,6 +25,7 @@ public class Main {
         System.out.println("Digite CPF do operador: ");
         operador.setCpf(sc.nextLine());
         System.out.println("Digite a Data de nascimento do operador: ");
+        System.out.println("\n");
         operador.setDataNascimento(null);
         System.out.println(operador);
         System.out.println("Informações de Operador coletadas com sucesso!");
@@ -29,9 +33,15 @@ public class Main {
         System.out.println("""
 ========== INFORMAÇÕES GERAIS DE MISSÃO ==========
                 """);
-        System.out.println("Informe o nível de visibilidade: "
-        + "Baixa, Moderada, Alta");
-        String visibilidade = sc.nextLine();
+        condicoesMetereologicas.setVisibilidade();
+        condicoesMetereologicas.setNivelPrecipitacao();
+        System.out.println(condicoesMetereologicas);
+
+        System.out.println("""
+========== INFORMAÇÕES DE REGIÃO ==========
+                """);
+
+
     }
 
 }

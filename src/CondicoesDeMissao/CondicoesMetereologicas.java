@@ -33,6 +33,9 @@ public class CondicoesMetereologicas {
         this.velocidadeVento = velocidadeVento;
     }
 
+    public CondicoesMetereologicas() {
+    }
+
     public double getTemperatura() {
         return temperatura;
     }
@@ -50,16 +53,26 @@ public class CondicoesMetereologicas {
         return visibilidade;
     }
 
-    public void setVisibilidade(Visibilidade visibilidade) {
-        this.visibilidade = visibilidade;
+    public void setVisibilidade() {
+        String input;
+        do {
+            System.out.println("Informe o nível de visibilidade: Baixa, Moderada, Alta");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (input.isEmpty());
+        this.visibilidade = Visibilidade.valueOf(input);
     }
 
     public NivelPrecipitacao getNivelPrecipitacao() {
         return nivelPrecipitacao;
     }
 
-    public void setNivelPrecipitacao(NivelPrecipitacao nivelPrecipitacao) {
-        this.nivelPrecipitacao = nivelPrecipitacao;
+    public void setNivelPrecipitacao() {
+        String input;
+        do {
+            System.out.println("Informe o nível de precipitação: Sem Chuva, Leve, Moderada, Intensa");
+            input = sc.nextLine().trim().toLowerCase();
+        } while (input.isEmpty());
+        this.nivelPrecipitacao = NivelPrecipitacao.valueOf(input);
     }
 
     public VelocidadeVento getVelocidadeVento() {
