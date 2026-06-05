@@ -74,15 +74,24 @@ public class OperadorUsuario {
     }
 
     public void setDataNascimento() {
-        LocalDate data;
+        LocalDate data = null;
         do {
             System.out.println("Digite a data de nascimento (dd/MM/yyyy): ");
             String input = sc.nextLine().trim();
-            data = LocalDate.parse(input, FORMATTER);
-            if (data.isAfter(LocalDate.now().minusYears(18))) {
-                System.out.println("ERRO! O operador deve ter pelo menos 18 anos.");
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                continue;
             }
-        } while (data.isAfter(LocalDate.now().minusYears(18)));
+            try {
+                data = LocalDate.parse(input, FORMATTER);
+                if (data.isAfter(LocalDate.now().minusYears(18))) {
+                    System.out.println("ERRO! O operador deve ter pelo menos 18 anos.");
+                    data = null;
+                }
+            } catch (Exception e) {
+                System.out.println("ERRO! Data inválida. Use o formato dd/MM/yyyy.");
+            }
+        } while (data == null);
         this.dataNascimento = data;
     }
 

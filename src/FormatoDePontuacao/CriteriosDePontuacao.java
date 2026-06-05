@@ -9,7 +9,6 @@ public class CriteriosDePontuacao implements Penalidades {
     private Vitima vitima;
     private EquipeDeResgate equipeDeResgate;
     private OperadorUsuario operador;
-
     private int gravidade;
     private int urgencia;
     private double multiplicadorTerreno;
@@ -31,7 +30,6 @@ public class CriteriosDePontuacao implements Penalidades {
         this.decisoesOperador = 0;
         this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
     }
-
 
     private void calcularGravidade() {
         String saude = vitima.getEstadoInicialSaude();
@@ -56,24 +54,24 @@ public class CriteriosDePontuacao implements Penalidades {
     private void calcularMultiplicadorTerreno() {
         String terreno = vitima.getTipoDoTerreno();
         if (terreno.equals("Urbano")) {
-            this.multiplicadorTerreno = 1.0;
+            this.multiplicadorTerreno = 10.0;
         } else if (terreno.equals("Floresta")) {
-            this.multiplicadorTerreno = 1.5;
+            this.multiplicadorTerreno = 15.0;
         } else {
-            this.multiplicadorTerreno = 1.8;
+            this.multiplicadorTerreno = 18.0;
         }
     }
 
     private void calcularMultiplicadorClima() {
         String precipitacao = vitima.getNivelPrecipitacao();
         if (precipitacao.equals("Sem_Chuva")) {
-            this.multiplicadorClima = 1.0;
+            this.multiplicadorClima = 10.0;
         } else if (precipitacao.equals("Leve")) {
-            this.multiplicadorClima = 1.2;
+            this.multiplicadorClima = 12.0;
         } else if (precipitacao.equals("Moderada")) {
-            this.multiplicadorClima = 1.5;
+            this.multiplicadorClima = 15.0;
         } else {
-            this.multiplicadorClima = 2.0;
+            this.multiplicadorClima = 20.0;
         }
 
         if (vitima.getVisibilidade().equals("Alta")) {
@@ -171,8 +169,8 @@ public class CriteriosDePontuacao implements Penalidades {
                 "\nUrgência: " + urgencia +
                 "\nMultiplicador de Terreno: " + multiplicadorTerreno +
                 "\nMultiplicador de Clima: " + multiplicadorClima +
-                "\nRisco de Cenário: " + riscoCenario +
+                "\nRisco de Cenário: " + String.format("%.2f", riscoCenario) +
                 "\nDecisões do Operador: " + decisoesOperador +
-                "\nPontuação Final: " + pontuacaoFinal;
+                "\nPontuação Final: " + String.format("%.2f", pontuacaoFinal);
     }
 }

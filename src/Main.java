@@ -2,6 +2,7 @@ import CondicoesDeMissao.Vitima;
 import EquipeDeResgate.EquipeDeResgate;
 import EquipeDeResgate.OperadorUsuario;
 import FormatoDePontuacao.CriteriosDePontuacao;
+import EquipeDeResgate.Missao;
 
 import java.util.Scanner;
 
@@ -20,19 +21,21 @@ public class Main {
         OperadorUsuario operador = new OperadorUsuario();
         operador.setNome();
         operador.setCpf();
-        operador.setTaxaAcerto();
         operador.setDataNascimento();
         System.out.println("\n--- Operador registrado ---");
-        System.out.println(operador);
+
 
         System.out.println("\n========== DADOS DA MISSÃO ==========");
         Vitima vitima = new Vitima();
+        Missao missao = new Missao();
 
+        missao.setDataAcionamento();
         System.out.println("\n-- Condições Meteorológicas --");
         vitima.setTemperatura();
         vitima.setVisibilidade();
         vitima.setNivelPrecipitacao();
         vitima.setVelocidadeVento();
+
 
         System.out.println("\n-- Dados da Região --");
         vitima.setNomeRegiao();
@@ -43,13 +46,10 @@ public class Main {
         System.out.println("\n-- Dados da Vítima --");
         vitima.setIdentificacao();
         vitima.setQtdPessoas();
-        vitima.setQtdPessoasResgatadas();
+
         vitima.setEstadoInicialSaude();
         vitima.setFaixaEtaria();
         vitima.setOrigemNotificacao();
-
-        System.out.println("\n--- Dados da missão registrados ---");
-        System.out.println(vitima);
 
         System.out.println("\n========== DADOS DA EQUIPE DE RESGATE ==========");
         EquipeDeResgate equipe = new EquipeDeResgate();
@@ -57,22 +57,27 @@ public class Main {
         equipe.setEspecialidade();
         equipe.setTempoDeResposta();
         equipe.setQtdAgentesEnviados();
-        equipe.setQtdAgentesRetornaram();
+
         equipe.statusDeDisponibilidade();
         equipe.nomeTecnologia();
-        equipe.setQtdTecnologiasRetornaram();
-
         System.out.println("\n--- Equipe registrada ---");
-        System.out.println(equipe);
+
 
         System.out.println("\n========== PONTUAÇÃO DA MISSÃO ==========");
         CriteriosDePontuacao pontuacao = new CriteriosDePontuacao(vitima, equipe, operador);
 
         System.out.println("Digite a quantidade de decisões corretas do operador durante a missão: ");
         int decisoes = Integer.parseInt(sc.nextLine().trim());
-        pontuacao.setDecisoesOperador(decisoes);
+        pontuacao.setDecisoesOperador(decisoes); // ← move pra cá
 
-        System.out.println("\n--- Resultado da pontuação ---");
+        System.out.println("\n--- Possíveis perdas --- ");
+        vitima.setQtdPessoasResgatadas();
+        equipe.setQtdAgentesRetornaram();
+        equipe.setQtdTecnologiasRetornaram();
+
+        operador.setTaxaAcerto(); // ← antes das penalidades
+
+        System.out.println("\n--- Acertividade e resultado da pontuação ---");
         System.out.println(pontuacao);
 
         System.out.println("\n--- Penalidades ---");
@@ -84,8 +89,6 @@ public class Main {
                 + pontuacao.penalidadeTecnologia()
                 + pontuacao.penalidadeEquipe();
 
-        System.out.println("\nPontuação Final com Penalidades: " + pontuacaoComPenalidades);
-
-        sc.close();
+        System.out.println("\nPontuação Final com Penalidades: " + String.format("%.2f", pontuacaoComPenalidades));
     }
 }

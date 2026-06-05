@@ -4,7 +4,7 @@ import CondicoesDeMissao.Regiao;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public abstract class Missoes extends Regiao {
+public class Missao extends Regiao {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -13,12 +13,12 @@ public abstract class Missoes extends Regiao {
     private String statusMissao;
 
 
-    public Missoes(double temperatura, String visibilidade,
-                   String nivelPrecipitacao, String velocidadeVento,
-                   String nomeRegiao, String coordenadasGPS,
-                   String tipoDoTerreno, String sinalComunicacao,
-                   LocalDate dataAcionamento, LocalDate dataConclusao,
-                   String statusMissao) {
+    public Missao(double temperatura, String visibilidade,
+                  String nivelPrecipitacao, String velocidadeVento,
+                  String nomeRegiao, String coordenadasGPS,
+                  String tipoDoTerreno, String sinalComunicacao,
+                  LocalDate dataAcionamento, LocalDate dataConclusao,
+                  String statusMissao) {
         super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento,
                 nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao);
         this.dataAcionamento = dataAcionamento;
@@ -26,7 +26,7 @@ public abstract class Missoes extends Regiao {
         this.statusMissao = statusMissao;
     }
 
-    public Missoes() {
+    public Missao() {
     }
 
 
@@ -35,12 +35,21 @@ public abstract class Missoes extends Regiao {
     }
 
     public void setDataAcionamento() {
-        String input;
+        LocalDate data = null;
         do {
             System.out.println("Digite a data de acionamento (dd/MM/yyyy): ");
-            input = sc.nextLine().trim();
-        } while (input.isEmpty());
-        this.dataAcionamento = LocalDate.parse(input, FORMATTER);
+            String input = sc.nextLine().trim();
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                continue;
+            }
+            try {
+                data = LocalDate.parse(input, FORMATTER);
+            } catch (Exception e) {
+                System.out.println("ERRO! Data inválida. Use o formato dd/MM/yyyy.");
+            }
+        } while (data == null);
+        this.dataAcionamento = data;
     }
 
     public LocalDate getDataConclusao() {
@@ -48,12 +57,21 @@ public abstract class Missoes extends Regiao {
     }
 
     public void setDataConclusao() {
-        String input;
+        LocalDate data = null;
         do {
             System.out.println("Digite a data de conclusão (dd/MM/yyyy): ");
-            input = sc.nextLine().trim();
-        } while (input.isEmpty());
-        this.dataConclusao = LocalDate.parse(input, FORMATTER);
+            String input = sc.nextLine().trim();
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                continue;
+            }
+            try {
+                data = LocalDate.parse(input, FORMATTER);
+            } catch (Exception e) {
+                System.out.println("ERRO! Data inválida. Use o formato dd/MM/yyyy.");
+            }
+        } while (data == null);
+        this.dataConclusao = data;
     }
 
     public String getStatusMissao() {

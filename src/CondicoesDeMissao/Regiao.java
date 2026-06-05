@@ -40,12 +40,37 @@ public class Regiao extends CondicoesMetereologicas {
     }
 
     public void setCoordenadasGPS() {
-        String input;
         do {
-            System.out.println("Digite as coordenadas GPS (ex: -23.5505, -46.6333): ");
-            input = sc.nextLine().trim();
-        } while (input.isEmpty());
-        this.coordenadasGPS = input;
+            System.out.println("Digite as coordenadas GPS (ex: -23.5505, -46.6333)");
+            String input = sc.nextLine().trim();
+
+            if (input.isEmpty()) {
+                System.out.println("ERRO! É necessário digitar um valor.");
+                continue;
+            }
+
+            try {
+                String[] partes = input.split(",");
+                if (partes.length != 2) {
+                    System.out.println("ERRO! Digite um valor para latitude e longitude separadas por vírgula.");
+                    continue;
+                }
+
+                double latitude = Double.parseDouble(partes[0].trim());
+                double longitude = Double.parseDouble(partes[1].trim());
+
+                if (latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180) {
+                    this.coordenadasGPS = input;
+                    return;
+                }
+
+                System.out.println("ERRO! A latitude deve estar entre -90 e 90 e a longitude entre -180 e 180.");
+
+            } catch (Exception e) {
+                System.out.println("ERRO! Formato inválido. Use '.' como separador após o segundo número (ex: -23.5505, -46.6333).");
+            }
+
+        } while (true);
     }
 
     public String getTipoDoTerreno() {
