@@ -1,5 +1,6 @@
 package EquipeDeResgate;
 
+import CondicoesDeMissao.CondicoesMetereologica;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -9,18 +10,17 @@ public class OperadorUsuario {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private Scanner sc = new Scanner(System.in);
+    // Reutiliza o Scanner estático
+    private static final Scanner sc = CondicoesMetereologica.sc;
 
     private String nome;
     private String cpf;
-    private double taxaAcerto;
     private LocalDate dataNascimento;
 
 
-    public OperadorUsuario(String nome, String cpf, double taxaAcerto, LocalDate dataNascimento) {
+    public OperadorUsuario(String nome, String cpf, LocalDate dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
-        this.taxaAcerto = taxaAcerto;
         this.dataNascimento = dataNascimento;
     }
 
@@ -54,21 +54,6 @@ public class OperadorUsuario {
         this.cpf = input;
     }
 
-    public double getTaxaAcerto() {
-        return taxaAcerto;
-    }
-
-    public void setTaxaAcerto() {
-        String input;
-        double valor;
-        do {
-            System.out.println("Digite a taxa de acerto do operador (0 a 100): ");
-            input = sc.nextLine().trim();
-            valor = Double.parseDouble(input);
-        } while (valor < 0 || valor > 100);
-        this.taxaAcerto = valor;
-    }
-
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -76,7 +61,7 @@ public class OperadorUsuario {
     public void setDataNascimento() {
         LocalDate data = null;
         do {
-            System.out.println("Digite a data de nascimento (dd/MM/yyyy): ");
+            System.out.println("Digite a data de nascimento (dd/mm/yyyy): ");
             String input = sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
@@ -89,7 +74,7 @@ public class OperadorUsuario {
                     data = null;
                 }
             } catch (Exception e) {
-                System.out.println("ERRO! Data inválida. Use o formato dd/MM/yyyy.");
+                System.out.println("ERRO! Data inválida. Use o formato dd/mm/yyyy.");
             }
         } while (data == null);
         this.dataNascimento = data;
@@ -99,7 +84,6 @@ public class OperadorUsuario {
     public String toString() {
         return "Nome do operador: " + nome +
                 "\nCPF: " + cpf +
-                "\nTaxa de acerto: " + taxaAcerto + "%" +
                 "\nIdade: " + Period.between(dataNascimento, LocalDate.now()).getYears() + " anos";
     }
 }

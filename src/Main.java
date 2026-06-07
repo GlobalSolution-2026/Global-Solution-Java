@@ -3,8 +3,6 @@ import EquipeDeResgate.EquipeDeResgate;
 import EquipeDeResgate.OperadorUsuario;
 import FormatoDePontuacao.CriteriosDePontuacao;
 
-import java.util.Scanner;
-
 /**
  * @author Nicolas Martins, Ana Bautzer, Cauã Bertini, Nicolas Frazão, Eduardo Lima
  * @version 3.0
@@ -14,7 +12,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("========== DADOS DO OPERADOR ==========");
         OperadorUsuario operador = new OperadorUsuario();
@@ -60,21 +57,18 @@ public class Main {
         System.out.println("\n========== PONTUAÇÃO DA MISSÃO ==========");
         CriteriosDePontuacao pontuacao = new CriteriosDePontuacao(vitima, equipe, operador);
 
-        System.out.println("\n--- Possíveis perdas --- ");
+        System.out.println("\n--- Possíveis perdas ---");
         vitima.setQtdPessoasResgatadas();
         equipe.setQtdAgentesRetornaram();
         equipe.setQtdTecnologiasRetornaram();
 
-        operador.setTaxaAcerto();
-
-        System.out.println("\n--- Acertividade e resultado da pontuação ---");
+        System.out.println("\n--- Resultado da pontuação ---");
         System.out.println(pontuacao);
 
         System.out.println("\n--- Penalidades ---");
         System.out.println(pontuacao.penalidadesToString());
 
         double pontuacaoComPenalidades = pontuacao.getPontuacaoFinal()
-                + pontuacao.penalidadeOperador()
                 + pontuacao.penalidadeVitima()
                 + pontuacao.penalidadeTecnologia()
                 + pontuacao.penalidadeEquipe();

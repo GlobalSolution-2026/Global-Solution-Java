@@ -1,6 +1,6 @@
 package CondicoesDeMissao;
 
-public class Regiao extends CondicoesMetereologicas {
+public class Regiao extends CondicoesMetereologica {
 
     private String nomeRegiao;
     private String coordenadasGPS;

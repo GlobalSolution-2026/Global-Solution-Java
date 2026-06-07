@@ -1,11 +1,12 @@
 package EquipeDeResgate;
 
+import CondicoesDeMissao.CondicoesMetereologica;
 import CondicoesDeMissao.Tecnologia;
 import java.util.Scanner;
 
 public class EquipeDeResgate implements Tecnologia {
 
-    private Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = CondicoesMetereologica.sc;
 
     private String nomeEquipe;
     private String especialidade;
@@ -88,7 +89,19 @@ public class EquipeDeResgate implements Tecnologia {
         do {
             System.out.println("Digite a quantidade de tecnologias que retornaram (máx: " + qtdTecnologias + "): ");
             input = sc.nextLine().trim();
-            valor = Integer.parseInt(input);
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                valor = -1;
+                continue;
+            }
+            try {
+                valor = Integer.parseInt(input);
+                if (valor < 0 || valor > qtdTecnologias)
+                    System.out.println("ERRO! Valor deve ser entre 0 e " + qtdTecnologias + ".");
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número inteiro válido.");
+                valor = -1;
+            }
         } while (valor < 0 || valor > qtdTecnologias);
         this.qtdTecnologiasRetornaram = valor;
     }
@@ -103,7 +116,18 @@ public class EquipeDeResgate implements Tecnologia {
         do {
             System.out.println("Digite a quantidade de agentes enviados: ");
             input = sc.nextLine().trim();
-            valor = Integer.parseInt(input);
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                valor = 0;
+                continue;
+            }
+            try {
+                valor = Integer.parseInt(input);
+                if (valor <= 0) System.out.println("ERRO! Deve ser maior que zero.");
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número inteiro válido.");
+                valor = 0;
+            }
         } while (valor <= 0);
         this.qtdAgentesEnviados = valor;
     }
@@ -118,7 +142,19 @@ public class EquipeDeResgate implements Tecnologia {
         do {
             System.out.println("Digite a quantidade de agentes que retornaram (máx: " + qtdAgentesEnviados + "): ");
             input = sc.nextLine().trim();
-            valor = Integer.parseInt(input);
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                valor = -1;
+                continue;
+            }
+            try {
+                valor = Integer.parseInt(input);
+                if (valor < 0 || valor > qtdAgentesEnviados)
+                    System.out.println("ERRO! Valor deve ser entre 0 e " + qtdAgentesEnviados + ".");
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número inteiro válido.");
+                valor = -1;
+            }
         } while (valor < 0 || valor > qtdAgentesEnviados);
         this.qtdAgentesRetornaram = valor;
     }
@@ -133,10 +169,22 @@ public class EquipeDeResgate implements Tecnologia {
                 "\n3 - Apenas o LEO" +
                 "\n0 - Continuar");
 
-        String inputStr = sc.nextLine().trim();
-        int input = Integer.parseInt(inputStr);
-
-        while (input != 0) {
+        String inputStr;
+        int input;
+        do {
+            inputStr = sc.nextLine().trim();
+            if (inputStr.isEmpty()) {
+                System.out.println("ERRO! Digite uma opção.");
+                input = -1;
+                continue;
+            }
+            try {
+                input = Integer.parseInt(inputStr);
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número válido.");
+                input = -1;
+                continue;
+            }
             switch (input) {
                 case 1:
                 case 2:
@@ -145,12 +193,12 @@ public class EquipeDeResgate implements Tecnologia {
                 case 3:
                     qtdTecnologias += 1;
                     break;
+                case 0:
+                    break;
                 default:
                     System.out.println("Opção inválida!");
             }
-            inputStr = sc.nextLine().trim();
-            input = Integer.parseInt(inputStr);
-        }
+        } while (input != 0);
 
         System.out.println("Tecnologias selecionadas: " + qtdTecnologias);
     }

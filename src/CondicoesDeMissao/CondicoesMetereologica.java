@@ -2,9 +2,9 @@ package CondicoesDeMissao;
 
 import java.util.Scanner;
 
-public class CondicoesMetereologicas {
+public class CondicoesMetereologica {
 
-    protected Scanner sc = new Scanner(System.in);
+    public static final Scanner sc = new Scanner(System.in);
 
     private double temperatura;
     private String visibilidade;
@@ -12,15 +12,15 @@ public class CondicoesMetereologicas {
     private String velocidadeVento;
 
 
-    public CondicoesMetereologicas(double temperatura, String visibilidade,
-                                   String nivelPrecipitacao, String velocidadeVento) {
+    public CondicoesMetereologica(double temperatura, String visibilidade,
+                                  String nivelPrecipitacao, String velocidadeVento) {
         this.temperatura = temperatura;
         this.visibilidade = visibilidade;
         this.nivelPrecipitacao = nivelPrecipitacao;
         this.velocidadeVento = velocidadeVento;
     }
 
-    public CondicoesMetereologicas() {
+    public CondicoesMetereologica() {
     }
 
 
@@ -30,11 +30,25 @@ public class CondicoesMetereologicas {
 
     public void setTemperatura() {
         String input;
+        double valor = 0;
+        boolean valido;
         do {
             System.out.println("Digite a temperatura (ex: 25.5): ");
             input = sc.nextLine().trim();
-        } while (input.isEmpty());
-        this.temperatura = Double.parseDouble(input);
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                valido = false;
+                continue;
+            }
+            try {
+                valor = Double.parseDouble(input);
+                valido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número válido.");
+                valido = false;
+            }
+        } while (!valido);
+        this.temperatura = valor;
     }
 
     public String getVisibilidade() {

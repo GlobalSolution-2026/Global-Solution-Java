@@ -39,7 +39,18 @@ public class Vitima extends Regiao {
         do {
             System.out.println("Digite a quantidade de pessoas: ");
             input = sc.nextLine().trim();
-            valor = Integer.parseInt(input);
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                valor = 0;
+                continue;
+            }
+            try {
+                valor = Integer.parseInt(input);
+                if (valor <= 0) System.out.println("ERRO! Deve ser maior que zero.");
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número inteiro válido.");
+                valor = 0;
+            }
         } while (valor <= 0);
         this.qtdPessoas = valor;
     }
@@ -54,7 +65,19 @@ public class Vitima extends Regiao {
         do {
             System.out.println("Digite a quantidade de pessoas resgatadas (máx: " + qtdPessoas + "): ");
             input = sc.nextLine().trim();
-            valor = Integer.parseInt(input);
+            if (input.isEmpty()) {
+                System.out.println("ERRO! Campo obrigatório.");
+                valor = -1;
+                continue;
+            }
+            try {
+                valor = Integer.parseInt(input);
+                if (valor < 0 || valor > qtdPessoas)
+                    System.out.println("ERRO! Valor deve ser entre 0 e " + qtdPessoas + ".");
+            } catch (NumberFormatException e) {
+                System.out.println("ERRO! Digite um número inteiro válido.");
+                valor = -1;
+            }
         } while (valor < 0 || valor > qtdPessoas);
         this.qtdPessoasResgatadas = valor;
     }

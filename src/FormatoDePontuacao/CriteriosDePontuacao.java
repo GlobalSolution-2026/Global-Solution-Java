@@ -117,16 +117,8 @@ public class CriteriosDePontuacao implements Penalidades {
 
     @Override
     public double penalidadeOperador() {
-        double taxa = operador.getTaxaAcerto();
-        if (taxa >= 80) {
-            return 0.0;
-        } else if (taxa >= 60) {
-            return -5.0;
-        } else if (taxa >= 40) {
-            return -10.0;
-        } else {
-            return -20.0;
-        }
+        // Taxa de acerto removida — penalidade de operador zerada
+        return 0.0;
     }
 
     @Override
