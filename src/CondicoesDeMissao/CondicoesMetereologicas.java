@@ -44,7 +44,7 @@ public class CondicoesMetereologicas {
     public void setVisibilidade() {
         String input;
         do {
-            System.out.println("Informe o nível de visibilidade (Baixa / Moderada / Alta): ");
+            System.out.println("Informe o nível de dificuldade de visibilidade (Baixa / Moderada / Alta): ");
             input = sc.nextLine().trim().toLowerCase();
         } while (!input.equals("baixa") && !input.equals("moderada") && !input.equals("alta"));
 

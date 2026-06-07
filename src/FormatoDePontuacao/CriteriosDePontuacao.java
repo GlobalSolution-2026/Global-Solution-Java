@@ -14,7 +14,6 @@ public class CriteriosDePontuacao implements Penalidades {
     private double multiplicadorTerreno;
     private double multiplicadorClima;
     private double riscoCenario;
-    private int decisoesOperador;
     private double pontuacaoFinal;
 
 
@@ -27,8 +26,7 @@ public class CriteriosDePontuacao implements Penalidades {
         calcularMultiplicadorTerreno();
         calcularMultiplicadorClima();
         this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
-        this.decisoesOperador = 0;
-        this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
+        this.pontuacaoFinal = riscoCenario;
     }
 
     private void calcularGravidade() {
@@ -79,11 +77,6 @@ public class CriteriosDePontuacao implements Penalidades {
         }
     }
 
-    public void recalcularPontuacao() {
-        this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
-        this.pontuacaoFinal = (riscoCenario * 0.40) + (decisoesOperador * 0.60);
-    }
-
 
     public int getGravidade() {
         return gravidade;
@@ -103,15 +96,6 @@ public class CriteriosDePontuacao implements Penalidades {
 
     public double getRiscoCenario() {
         return riscoCenario;
-    }
-
-    public int getDecisoesOperador() {
-        return decisoesOperador;
-    }
-
-    public void setDecisoesOperador(int decisoesOperador) {
-        this.decisoesOperador = decisoesOperador;
-        recalcularPontuacao();
     }
 
     public double getPontuacaoFinal() {
@@ -170,7 +154,6 @@ public class CriteriosDePontuacao implements Penalidades {
                 "\nMultiplicador de Terreno: " + multiplicadorTerreno +
                 "\nMultiplicador de Clima: " + multiplicadorClima +
                 "\nRisco de Cenário: " + String.format("%.2f", riscoCenario) +
-                "\nDecisões do Operador: " + decisoesOperador +
                 "\nPontuação Final: " + String.format("%.2f", pontuacaoFinal);
     }
 }

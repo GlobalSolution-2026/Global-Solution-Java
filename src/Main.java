@@ -2,13 +2,12 @@ import CondicoesDeMissao.Vitima;
 import EquipeDeResgate.EquipeDeResgate;
 import EquipeDeResgate.OperadorUsuario;
 import FormatoDePontuacao.CriteriosDePontuacao;
-import EquipeDeResgate.Missao;
 
 import java.util.Scanner;
 
 /**
  * @author Nicolas Martins, Ana Bautzer, Cauã Bertini, Nicolas Frazão, Eduardo Lima
- * @version 2.0
+ * @version 3.0
  * @since 1.0
  */
 
@@ -27,9 +26,7 @@ public class Main {
 
         System.out.println("\n========== DADOS DA MISSÃO ==========");
         Vitima vitima = new Vitima();
-        Missao missao = new Missao();
 
-        missao.setDataAcionamento();
         System.out.println("\n-- Condições Meteorológicas --");
         vitima.setTemperatura();
         vitima.setVisibilidade();
@@ -44,9 +41,7 @@ public class Main {
         vitima.setSinalComunicacao();
 
         System.out.println("\n-- Dados da Vítima --");
-        vitima.setIdentificacao();
         vitima.setQtdPessoas();
-
         vitima.setEstadoInicialSaude();
         vitima.setFaixaEtaria();
         vitima.setOrigemNotificacao();
@@ -55,7 +50,6 @@ public class Main {
         EquipeDeResgate equipe = new EquipeDeResgate();
         equipe.setNomeEquipe();
         equipe.setEspecialidade();
-        equipe.setTempoDeResposta();
         equipe.setQtdAgentesEnviados();
 
         equipe.statusDeDisponibilidade();
@@ -66,16 +60,12 @@ public class Main {
         System.out.println("\n========== PONTUAÇÃO DA MISSÃO ==========");
         CriteriosDePontuacao pontuacao = new CriteriosDePontuacao(vitima, equipe, operador);
 
-        System.out.println("Digite a quantidade de decisões corretas do operador durante a missão: ");
-        int decisoes = Integer.parseInt(sc.nextLine().trim());
-        pontuacao.setDecisoesOperador(decisoes); // ← move pra cá
-
         System.out.println("\n--- Possíveis perdas --- ");
         vitima.setQtdPessoasResgatadas();
         equipe.setQtdAgentesRetornaram();
         equipe.setQtdTecnologiasRetornaram();
 
-        operador.setTaxaAcerto(); // ← antes das penalidades
+        operador.setTaxaAcerto();
 
         System.out.println("\n--- Acertividade e resultado da pontuação ---");
         System.out.println(pontuacao);

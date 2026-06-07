@@ -2,7 +2,6 @@ package CondicoesDeMissao;
 
 public class Vitima extends Regiao {
 
-    private String identificacao;
     private int qtdPessoas;
     private int qtdPessoasResgatadas;
     private String estadoInicialSaude;
@@ -14,12 +13,11 @@ public class Vitima extends Regiao {
                   String nivelPrecipitacao, String velocidadeVento,
                   String nomeRegiao, String coordenadasGPS,
                   String tipoDoTerreno, String sinalComunicacao,
-                  String identificacao, int qtdPessoas, int qtdPessoasResgatadas,
+                  int qtdPessoas, int qtdPessoasResgatadas,
                   String estadoInicialSaude, String faixaEtaria,
                   String origemNotificacao) {
         super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento,
                 nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao);
-        this.identificacao = identificacao;
         this.qtdPessoas = qtdPessoas;
         this.qtdPessoasResgatadas = qtdPessoasResgatadas;
         this.estadoInicialSaude = estadoInicialSaude;
@@ -30,19 +28,6 @@ public class Vitima extends Regiao {
     public Vitima() {
     }
 
-
-    public String getIdentificacao() {
-        return identificacao;
-    }
-
-    public void setIdentificacao() {
-        String input;
-        do {
-            System.out.println("Digite a identificação da vítima: ");
-            input = sc.nextLine().trim();
-        } while (input.isEmpty());
-        this.identificacao = input;
-    }
 
     public int getQtdPessoas() {
         return qtdPessoas;
@@ -136,8 +121,7 @@ public class Vitima extends Regiao {
 
     @Override
     public String toString() {
-        return "Identificação: " + identificacao +
-                "\nEstado de Saúde: " + estadoInicialSaude +
+        return "Estado de Saúde: " + estadoInicialSaude +
                 "\nFaixa etária: " + faixaEtaria +
                 "\nOrigem da notificação: " + origemNotificacao +
                 "\nQuantidade de pessoas: " + qtdPessoas +

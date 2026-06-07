@@ -9,19 +9,17 @@ public class EquipeDeResgate implements Tecnologia {
 
     private String nomeEquipe;
     private String especialidade;
-    private String tempoDeResposta;
     private int qtdTecnologias;
     private int qtdTecnologiasRetornaram;
     private int qtdAgentesEnviados;
     private int qtdAgentesRetornaram;
 
 
-    public EquipeDeResgate(String nomeEquipe, String especialidade, String tempoDeResposta,
+    public EquipeDeResgate(String nomeEquipe, String especialidade,
                            int qtdTecnologias, int qtdTecnologiasRetornaram,
                            int qtdAgentesEnviados, int qtdAgentesRetornaram) {
         this.nomeEquipe = nomeEquipe;
         this.especialidade = especialidade;
-        this.tempoDeResposta = tempoDeResposta;
         this.qtdTecnologias = qtdTecnologias;
         this.qtdTecnologiasRetornaram = qtdTecnologiasRetornaram;
         this.qtdAgentesEnviados = qtdAgentesEnviados;
@@ -69,26 +67,6 @@ public class EquipeDeResgate implements Tecnologia {
             this.especialidade = "Aquatico";
         } else {
             this.especialidade = "Aerea";
-        }
-    }
-
-    public String getTempoDeResposta() {
-        return tempoDeResposta;
-    }
-
-    public void setTempoDeResposta() {
-        String input;
-        do {
-            System.out.println("Digite o tempo de resposta (Curto / Medio / Longo): ");
-            input = sc.nextLine().trim().toLowerCase();
-        } while (!input.equals("curto") && !input.equals("medio") && !input.equals("longo"));
-
-        if (input.equals("curto")) {
-            this.tempoDeResposta = "Curto";
-        } else if (input.equals("medio")) {
-            this.tempoDeResposta = "Medio";
-        } else {
-            this.tempoDeResposta = "Longo";
         }
     }
 
@@ -179,19 +157,15 @@ public class EquipeDeResgate implements Tecnologia {
 
     @Override
     public void statusDeDisponibilidade() {
-        boolean statusDisponibilidadeDrone = true;
-        boolean statusDisponibilidadeLEO = true;
-
         System.out.println("\nDisponibilidade de Dispositivos:");
-        System.out.println("- Drone = " + statusDisponibilidadeDrone);
-        System.out.println("- LEO = " + statusDisponibilidadeLEO);
+        System.out.println("- Drone = Pronto");
+        System.out.println("- LEO = Pronto");
     }
 
     @Override
     public String toString() {
         return "Nome da equipe: " + nomeEquipe +
                 "\nEspecialidade: " + especialidade +
-                "\nTempo de Resposta: " + tempoDeResposta +
                 "\nAgentes enviados: " + qtdAgentesEnviados +
                 "\nAgentes retornaram: " + qtdAgentesRetornaram +
                 "\nTecnologias utilizadas: " + qtdTecnologias +
