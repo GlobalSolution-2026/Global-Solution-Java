@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class OperadorUsuario {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/mm/yyyy");
 
     // Reutiliza o Scanner estático
     private static final Scanner sc = CondicoesMetereologica.sc;
