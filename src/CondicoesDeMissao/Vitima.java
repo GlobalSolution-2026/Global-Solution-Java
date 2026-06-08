@@ -1,6 +1,8 @@
 package CondicoesDeMissao;
 
-public class Vitima extends Regiao {
+import LerInformacao.LerDado;
+
+public class Vitima extends LerDado {
 
     private int qtdPessoas;
     private int qtdPessoasResgatadas;
@@ -9,15 +11,7 @@ public class Vitima extends Regiao {
     private String origemNotificacao;
 
 
-    public Vitima(double temperatura, String visibilidade,
-                  String nivelPrecipitacao, String velocidadeVento,
-                  String nomeRegiao, String coordenadasGPS,
-                  String tipoDoTerreno, String sinalComunicacao,
-                  int qtdPessoas, int qtdPessoasResgatadas,
-                  String estadoInicialSaude, String faixaEtaria,
-                  String origemNotificacao) {
-        super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento,
-                nomeRegiao, coordenadasGPS, tipoDoTerreno, sinalComunicacao);
+    public Vitima(int qtdPessoas, int qtdPessoasResgatadas, String estadoInicialSaude, String faixaEtaria, String origemNotificacao) {
         this.qtdPessoas = qtdPessoas;
         this.qtdPessoasResgatadas = qtdPessoasResgatadas;
         this.estadoInicialSaude = estadoInicialSaude;
@@ -38,7 +32,7 @@ public class Vitima extends Regiao {
         int valor;
         do {
             System.out.println("Digite a quantidade de pessoas: ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 valor = 0;
@@ -64,7 +58,7 @@ public class Vitima extends Regiao {
         int valor;
         do {
             System.out.println("Digite a quantidade de pessoas resgatadas (máx: " + qtdPessoas + "): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 valor = -1;
@@ -90,7 +84,7 @@ public class Vitima extends Regiao {
         String input;
         do {
             System.out.println("Informe o estado inicial de saúde (Estavel / Grave / Risco_De_Vida): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("estavel") && !input.equals("grave") && !input.equals("risco_de_vida"));
 
         if (input.equals("estavel")) {
@@ -110,7 +104,7 @@ public class Vitima extends Regiao {
         String input;
         do {
             System.out.println("Informe a faixa etária (Crianca / Adulta / Terceira_Idade): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("crianca") && !input.equals("adulta") && !input.equals("terceira_idade"));
 
         if (input.equals("crianca")) {
@@ -130,7 +124,7 @@ public class Vitima extends Regiao {
         String input;
         do {
             System.out.println("Informe a origem da notificação (Satelite / Ligacao / SMS): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("satelite") && !input.equals("ligacao") && !input.equals("sms"));
 
         if (input.equals("satelite")) {

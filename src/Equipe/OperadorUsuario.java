@@ -1,17 +1,16 @@
 package Equipe;
 
 import CondicoesDeMissao.CondicoesMetereologica;
+import LerInformacao.LerDado;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class OperadorUsuario {
+public class OperadorUsuario extends LerDado {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-
-    // Reutiliza o Scanner estático
-    private static final Scanner sc = CondicoesMetereologica.sc;
 
     private String nome;
     private String cpf;
@@ -36,7 +35,7 @@ public class OperadorUsuario {
         String input;
         do {
             System.out.println("Digite o nome do operador (mínimo 5 caracteres): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
         } while (input.length() < 5);
         this.nome = input;
     }
@@ -49,7 +48,7 @@ public class OperadorUsuario {
         String input;
         do {
             System.out.println("Digite o CPF do operador (11 dígitos, apenas números): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
         } while (input.length() < 11);
         this.cpf = input;
     }
@@ -62,7 +61,7 @@ public class OperadorUsuario {
         LocalDate data = null;
         do {
             System.out.println("Digite a data de nascimento (dd/mm/yyyy): ");
-            String input = sc.nextLine().trim();
+            String input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 continue;

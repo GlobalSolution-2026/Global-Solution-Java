@@ -1,5 +1,7 @@
 package FormatoDePontuacao;
 
+import CondicoesDeMissao.CondicoesMetereologica;
+import CondicoesDeMissao.Regiao;
 import CondicoesDeMissao.Vitima;
 import Equipe.EquipeDeResgate;
 import Equipe.OperadorUsuario;
@@ -7,6 +9,8 @@ import Equipe.OperadorUsuario;
 public class CriteriosDePontuacao implements Penalidades {
 
     private Vitima vitima;
+    private CondicoesMetereologica condicoesMetereologica;
+    private Regiao regiao;
     private EquipeDeResgate equipeDeResgate;
     private OperadorUsuario operador;
     private int gravidade;
@@ -17,8 +21,12 @@ public class CriteriosDePontuacao implements Penalidades {
     private double pontuacaoFinal;
 
 
-    public CriteriosDePontuacao(Vitima vitima, EquipeDeResgate equipeDeResgate, OperadorUsuario operador) {
+    public CriteriosDePontuacao(Vitima vitima, Regiao regiao,
+                                CondicoesMetereologica condicoesMetereologica,
+                                EquipeDeResgate equipeDeResgate, OperadorUsuario operador) {
         this.vitima = vitima;
+        this.regiao = regiao;
+        this.condicoesMetereologica = condicoesMetereologica;
         this.equipeDeResgate = equipeDeResgate;
         this.operador = operador;
         calcularGravidade();
@@ -50,7 +58,7 @@ public class CriteriosDePontuacao implements Penalidades {
     }
 
     private void calcularMultiplicadorTerreno() {
-        String terreno = vitima.getTipoDoTerreno();
+        String terreno = regiao.getTipoDoTerreno();
         if (terreno.equals("Urbano")) {
             this.multiplicadorTerreno = 10.0;
         } else if (terreno.equals("Floresta")) {
@@ -61,7 +69,7 @@ public class CriteriosDePontuacao implements Penalidades {
     }
 
     private void calcularMultiplicadorClima() {
-        String precipitacao = vitima.getNivelPrecipitacao();
+        String precipitacao = condicoesMetereologica.getNivelPrecipitacao();
         if (precipitacao.equals("Sem_Chuva")) {
             this.multiplicadorClima = 10.0;
         } else if (precipitacao.equals("Leve")) {
@@ -72,52 +80,25 @@ public class CriteriosDePontuacao implements Penalidades {
             this.multiplicadorClima = 20.0;
         }
 
-        if (vitima.getVisibilidade().equals("Alta")) {
-            this.multiplicadorClima = this.multiplicadorClima + 0.3;
+        if (condicoesMetereologica.getVisibilidade().equals("Alta")) {
+            this.multiplicadorClima += 0.3;
         }
     }
 
 
-    public int getGravidade() {
-        return gravidade;
-    }
-
-    public int getUrgencia() {
-        return urgencia;
-    }
-
-    public double getMultiplicadorTerreno() {
-        return multiplicadorTerreno;
-    }
-
-    public double getMultiplicadorClima() {
-        return multiplicadorClima;
-    }
-
-    public double getRiscoCenario() {
-        return riscoCenario;
-    }
-
-    public double getPontuacaoFinal() {
-        return pontuacaoFinal;
-    }
-
-    public Vitima getVitima() {
-        return vitima;
-    }
-
-    public EquipeDeResgate getEquipeDeResgate() {
-        return equipeDeResgate;
-    }
-
-    public OperadorUsuario getOperador() {
-        return operador;
-    }
+    public int getGravidade() { return gravidade; }
+    public int getUrgencia() { return urgencia; }
+    public double getMultiplicadorTerreno() { return multiplicadorTerreno; }
+    public double getMultiplicadorClima() { return multiplicadorClima; }
+    public double getRiscoCenario() { return riscoCenario; }
+    public double getPontuacaoFinal() { return pontuacaoFinal; }
+    public Vitima getVitima() { return vitima; }
+    public EquipeDeResgate getEquipeDeResgate() { return equipeDeResgate; }
+    public OperadorUsuario getOperador() { return operador; }
 
 
     @Override
     public double penalidadeOperador() {
-        // Taxa de acerto removida — penalidade de operador zerada
         return 0.0;
     }
 

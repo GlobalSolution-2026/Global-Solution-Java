@@ -1,3 +1,5 @@
+import CondicoesDeMissao.CondicoesMetereologica;
+import CondicoesDeMissao.Regiao;
 import CondicoesDeMissao.Vitima;
 import Equipe.EquipeDeResgate;
 import Equipe.OperadorUsuario;
@@ -8,7 +10,6 @@ import FormatoDePontuacao.CriteriosDePontuacao;
  * @version 3.0
  * @since 1.0
  */
-
 public class Main {
 
     public static void main(String[] args) {
@@ -22,22 +23,23 @@ public class Main {
 
 
         System.out.println("\n========== DADOS DA MISSÃO ==========");
-        Vitima vitima = new Vitima();
 
         System.out.println("\n-- Condições Meteorológicas --");
-        vitima.setTemperatura();
-        vitima.setVisibilidade();
-        vitima.setNivelPrecipitacao();
-        vitima.setVelocidadeVento();
-
+        CondicoesMetereologica clima = new CondicoesMetereologica();
+        clima.setTemperatura();
+        clima.setVisibilidade();
+        clima.setNivelPrecipitacao();
+        clima.setVelocidadeVento();
 
         System.out.println("\n-- Dados da Região --");
-        vitima.setNomeRegiao();
-        vitima.setCoordenadasGPS();
-        vitima.setTipoDoTerreno();
-        vitima.setSinalComunicacao();
+        Regiao regiao = new Regiao();
+        regiao.setNomeRegiao();
+        regiao.setCoordenadasGPS();
+        regiao.setTipoDoTerreno();
+        regiao.setSinalComunicacao();
 
         System.out.println("\n-- Dados da Vítima --");
+        Vitima vitima = new Vitima();
         vitima.setQtdPessoas();
         vitima.setEstadoInicialSaude();
         vitima.setFaixaEtaria();
@@ -48,14 +50,13 @@ public class Main {
         equipe.setNomeEquipe();
         equipe.setEspecialidade();
         equipe.setQtdAgentesEnviados();
-
         equipe.statusDeDisponibilidade();
         equipe.nomeTecnologia();
         System.out.println("\n--- Equipe registrada ---");
 
 
         System.out.println("\n========== PONTUAÇÃO DA MISSÃO ==========");
-        CriteriosDePontuacao pontuacao = new CriteriosDePontuacao(vitima, equipe, operador);
+        CriteriosDePontuacao pontuacao = new CriteriosDePontuacao(vitima, regiao, clima, equipe, operador);
 
         System.out.println("\n--- Possíveis perdas ---");
         vitima.setQtdPessoasResgatadas();

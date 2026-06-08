@@ -1,6 +1,8 @@
 package CondicoesDeMissao;
 
-public class Regiao extends CondicoesMetereologica {
+import LerInformacao.LerDado;
+
+public class Regiao extends LerDado {
 
     private String nomeRegiao;
     private String coordenadasGPS;
@@ -8,10 +10,7 @@ public class Regiao extends CondicoesMetereologica {
     private String sinalComunicacao;
 
 
-    public Regiao(double temperatura, String visibilidade, String nivelPrecipitacao,
-                  String velocidadeVento, String nomeRegiao, String coordenadasGPS,
-                  String tipoDoTerreno, String sinalComunicacao) {
-        super(temperatura, visibilidade, nivelPrecipitacao, velocidadeVento);
+    public Regiao(String nomeRegiao, String coordenadasGPS, String tipoDoTerreno, String sinalComunicacao) {
         this.nomeRegiao = nomeRegiao;
         this.coordenadasGPS = coordenadasGPS;
         this.tipoDoTerreno = tipoDoTerreno;
@@ -21,7 +20,6 @@ public class Regiao extends CondicoesMetereologica {
     public Regiao() {
     }
 
-
     public String getNomeRegiao() {
         return nomeRegiao;
     }
@@ -30,7 +28,7 @@ public class Regiao extends CondicoesMetereologica {
         String input;
         do {
             System.out.println("Digite o nome da região (mínimo 3 caracteres): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
         } while (input.length() < 3);
         this.nomeRegiao = input;
     }
@@ -42,7 +40,7 @@ public class Regiao extends CondicoesMetereologica {
     public void setCoordenadasGPS() {
         do {
             System.out.println("Digite as coordenadas GPS (ex: -23.5505, -46.6333)");
-            String input = sc.nextLine().trim();
+            String input = LerDado.sc.nextLine().trim();
 
             if (input.isEmpty()) {
                 System.out.println("ERRO! É necessário digitar um valor.");
@@ -81,7 +79,7 @@ public class Regiao extends CondicoesMetereologica {
         String input;
         do {
             System.out.println("Informe o tipo de terreno (Montanha / Floresta / Urbano): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("montanha") && !input.equals("floresta") && !input.equals("urbano"));
 
         if (input.equals("montanha")) {
@@ -101,7 +99,7 @@ public class Regiao extends CondicoesMetereologica {
         String input;
         do {
             System.out.println("Informe o sinal de comunicação (Com_Cobertura / Sem_Cobertura): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("com_cobertura") && !input.equals("sem_cobertura"));
 
         if (input.equals("com_cobertura")) {

@@ -1,12 +1,8 @@
 package Equipe;
 
-import CondicoesDeMissao.CondicoesMetereologica;
+import LerInformacao.LerDado;
 
-import java.util.Scanner;
-
-public class EquipeDeResgate implements Tecnologia {
-
-    private static final Scanner sc = CondicoesMetereologica.sc;
+public class EquipeDeResgate extends LerDado implements Tecnologia {
 
     private String nomeEquipe;
     private String especialidade;
@@ -39,7 +35,7 @@ public class EquipeDeResgate implements Tecnologia {
         String input;
         do {
             System.out.println("Informe o nome da equipe (Alpha / Bravo / Charlie): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("alpha") && !input.equals("bravo") && !input.equals("charlie"));
 
         if (input.equals("alpha")) {
@@ -59,7 +55,7 @@ public class EquipeDeResgate implements Tecnologia {
         String input;
         do {
             System.out.println("Informe a especialidade da equipe (Terrestre / Aquatico / Aerea): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("terrestre") && !input.equals("aquatico") && !input.equals("aerea"));
 
         if (input.equals("terrestre")) {
@@ -88,7 +84,7 @@ public class EquipeDeResgate implements Tecnologia {
         int valor;
         do {
             System.out.println("Digite a quantidade de tecnologias que retornaram (máx: " + qtdTecnologias + "): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 valor = -1;
@@ -115,7 +111,7 @@ public class EquipeDeResgate implements Tecnologia {
         int valor;
         do {
             System.out.println("Digite a quantidade de agentes enviados: ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 valor = 0;
@@ -141,7 +137,7 @@ public class EquipeDeResgate implements Tecnologia {
         int valor;
         do {
             System.out.println("Digite a quantidade de agentes que retornaram (máx: " + qtdAgentesEnviados + "): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 valor = -1;
@@ -172,7 +168,7 @@ public class EquipeDeResgate implements Tecnologia {
         String inputStr;
         int input;
         do {
-            inputStr = sc.nextLine().trim();
+            inputStr = LerDado.sc.nextLine().trim();
             if (inputStr.isEmpty()) {
                 System.out.println("ERRO! Digite uma opção.");
                 input = -1;

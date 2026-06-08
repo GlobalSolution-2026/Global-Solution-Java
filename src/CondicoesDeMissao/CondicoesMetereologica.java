@@ -1,10 +1,9 @@
 package CondicoesDeMissao;
 
-import java.util.Scanner;
+import LerInformacao.LerDado;
 
-public class CondicoesMetereologica {
 
-    public static final Scanner sc = new Scanner(System.in);
+public class CondicoesMetereologica extends LerDado {
 
     private double temperatura;
     private String visibilidade;
@@ -34,7 +33,7 @@ public class CondicoesMetereologica {
         boolean valido;
         do {
             System.out.println("Digite a temperatura (ex: 25.5): ");
-            input = sc.nextLine().trim();
+            input = LerDado.sc.nextLine().trim();
             if (input.isEmpty()) {
                 System.out.println("ERRO! Campo obrigatório.");
                 valido = false;
@@ -59,7 +58,7 @@ public class CondicoesMetereologica {
         String input;
         do {
             System.out.println("Informe o nível de dificuldade de visibilidade (Baixa / Moderada / Alta): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("baixa") && !input.equals("moderada") && !input.equals("alta"));
 
         if (input.equals("baixa")) {
@@ -79,7 +78,7 @@ public class CondicoesMetereologica {
         String input;
         do {
             System.out.println("Informe o nível de precipitação (Sem_Chuva / Leve / Moderada / Intensa): ");
-            input = sc.nextLine().trim().toLowerCase();
+            input = LerDado.sc.nextLine().trim().toLowerCase();
         } while (!input.equals("sem_chuva") && !input.equals("leve")
                 && !input.equals("moderada") && !input.equals("intensa"));
 
