@@ -1,4 +1,4 @@
-package EquipeDeResgate;
+package Equipe;
 
 import CondicoesDeMissao.CondicoesMetereologica;
 import java.time.LocalDate;

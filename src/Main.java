@@ -1,6 +1,6 @@
 import CondicoesDeMissao.Vitima;
-import EquipeDeResgate.EquipeDeResgate;
-import EquipeDeResgate.OperadorUsuario;
+import Equipe.EquipeDeResgate;
+import Equipe.OperadorUsuario;
 import FormatoDePontuacao.CriteriosDePontuacao;
 
 /**

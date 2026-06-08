@@ -1,4 +1,4 @@
-package CondicoesDeMissao;
+package Equipe;
 
 public interface Tecnologia {
 

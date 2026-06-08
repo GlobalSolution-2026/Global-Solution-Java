@@ -1,8 +1,8 @@
 package FormatoDePontuacao;
 
 import CondicoesDeMissao.Vitima;
-import EquipeDeResgate.EquipeDeResgate;
-import EquipeDeResgate.OperadorUsuario;
+import Equipe.EquipeDeResgate;
+import Equipe.OperadorUsuario;
 
 public class CriteriosDePontuacao implements Penalidades {
 
@@ -25,7 +25,7 @@ public class CriteriosDePontuacao implements Penalidades {
         calcularUrgencia();
         calcularMultiplicadorTerreno();
         calcularMultiplicadorClima();
-        this.riscoCenario = (gravidade + urgencia) * multiplicadorTerreno * multiplicadorClima;
+        this.riscoCenario = (gravidade + urgencia) * (multiplicadorTerreno + multiplicadorClima);
         this.pontuacaoFinal = riscoCenario;
     }
 

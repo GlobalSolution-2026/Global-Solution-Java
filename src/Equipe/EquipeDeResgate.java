@@ -1,7 +1,7 @@
-package EquipeDeResgate;
+package Equipe;
 
 import CondicoesDeMissao.CondicoesMetereologica;
-import CondicoesDeMissao.Tecnologia;
+
 import java.util.Scanner;
 
 public class EquipeDeResgate implements Tecnologia {
