@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class OperadorUsuario extends LerDado {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private String nome;
     private String cpf;
