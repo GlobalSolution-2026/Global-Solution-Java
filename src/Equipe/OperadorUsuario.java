@@ -49,7 +49,7 @@ public class OperadorUsuario extends LerDado {
         do {
             System.out.println("Digite o CPF do operador (11 dígitos, apenas números): ");
             input = LerDado.sc.nextLine().trim();
-        } while (input.length() < 11);
+        } while (input.length() != 11);
         this.cpf = input;
     }
 
